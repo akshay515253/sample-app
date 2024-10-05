@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Brain, Building, Shield, Play, Pause, ChevronDown, ChevronUp } from 'lucide-react';
-import { useCallback } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Box, OrbitControls } from '@react-three/drei';
+import { motion, AnimatePresence } from 'framer-motion';
 import LogoVideo from "../src/sample-video.mp4"
 import BgVideo from "../src/bg-video.mp4"
+import * as THREE from 'three';
 
 
 const BackgroundVideo = () => {
@@ -14,8 +17,10 @@ const BackgroundVideo = () => {
     const { current: video } = videoRef;
     if (!video) return;
 
+
     const currentScrollY = window.scrollY;
     const scrollDelta = currentScrollY - lastScrollY.current;
+
 
     if (scrollDelta > 0) {
       // Scrolling down, play forward
@@ -30,10 +35,12 @@ const BackgroundVideo = () => {
     lastScrollY.current = currentScrollY;
   }, []);
 
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
 
   return (
     <video
@@ -49,45 +56,135 @@ const BackgroundVideo = () => {
   );
 };
 
+const RubiksCube = () => {
+  const groupRef = useRef();
+  const [chips, setChips] = useState([]);
+
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.x += 0.005;
+      groupRef.current.rotation.y += 0.005;
+    }
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (chips.length < 26) {
+        const newChip = {
+          id: Date.now(),
+          position: [
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10
+          ],
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          isInside: false
+        };
+        setChips(prevChips => [...prevChips, newChip]);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [chips]);
+
+  return (
+    <group ref={groupRef}>
+      <Box args={[3, 3, 3]} >
+        <meshStandardMaterial color="gray" transparent opacity={0.5} />
+      </Box>
+      {chips.map((chip) => (
+        <DataChip
+          key={chip.id}
+          position={[
+            chip.isInside ? 0 : Math.sign(chip.position[0]) * 1.5,
+            chip.isInside ? 0 : Math.sign(chip.position[1]) * 1.5,
+            chip.isInside ? 0 : Math.sign(chip.position[2]) * 1.5
+          ]}
+          color={chip.color}
+        />
+      ))}
+    </group>
+  );
+};
+
+const DataChip = ({ position, color }) => {
+  const meshRef = useRef();
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.position.lerp(new THREE.Vector3(...position), 0.1);
+    }
+  });
+
+  return (
+    <Box
+      ref={meshRef}
+      args={[0.2, 0.2, 0.05]}
+    >
+      <meshStandardMaterial color={color} />
+    </Box>
+  );
+};
 
 
-const OfficeSection = ({ title, description, features, processes, transformation, isActive }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+
+
+const RubiksCubeScene = () => {
+  return (
+    <div style={{ width: '100%', height: '300px' }}>
+      <Canvas camera={{ position: [0, 0, 10] }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <RubiksCube />
+        <OrbitControls />
+      </Canvas>
+    </div>
+  );
+};
+
+
+const OfficeSection = ({ title, description, features, processes, transformation }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const contentRef = useRef(null);
 
 
   return (
-    <div className={`p-4 border rounded-lg transition-all duration-500 ${isActive ? 'bg-blue-100 shadow-lg' : 'bg-gray-100'}`}>
-      <h3 className="text-xl font-semibold mb-2 flex justify-between items-center">
+    <div className="mb-4">
+      <button
+        className="w-full text-left p-4 bg-blue-500 text-white rounded-t-lg focus:outline-none"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {title}
-        <button onClick={() => setIsExpanded(!isExpanded)} className="text-blue-500 hover:text-blue-700">
-          {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-        </button>
-      </h3>
-      <p className="mb-2 text-gray-600">{description}</p>
-      {isExpanded && (
-        <>
-          <div className="mb-4">
-            <h4 className="font-semibold mb-2">Key Features:</h4>
-            <ul className="list-disc pl-5">
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white p-4 rounded-b-lg"
+            ref={contentRef}
+          >
+            <p className="mb-4">{description}</p>
+            <RubiksCubeScene />
+            <h3 className="font-bold mt-4">Key Features:</h3>
+            <ul className="list-disc pl-5 mb-2">
               {features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
-          </div>
-          <div className="mb-4">
-            <h4 className="font-semibold mb-2">Core Processes:</h4>
-            <ul className="list-disc pl-5">
+            <h3 className="font-bold">Core Processes:</h3>
+            <ul className="list-disc pl-5 mb-2">
               {processes.map((process, index) => (
                 <li key={index}>{process}</li>
               ))}
             </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Digital Transformation:</h4>
+            <h3 className="font-bold">Digital Transformation:</h3>
             <p>{transformation}</p>
-          </div>
-        </>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -115,11 +212,10 @@ const TransformersVideo = () => {
 
 
   return (
-    <div style={{ height: 400 }} className="relative w-full aspect-video mb-8">
+    <div className="relative w-full aspect-video mb-8">
       <video
-        style={{ height: 400 }}
         ref={videoRef}
-        className="w-full h-400 object-cover rounded-lg"
+        className="w-full h-full object-cover rounded-lg"
         loop
         muted
       >
@@ -134,7 +230,7 @@ const TransformersVideo = () => {
       </button>
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
         <p className="text-white text-2xl font-bold text-center px-4">
-          Transforming Your Business:<br />From Traditional to Digital
+          Transforming Your Business
         </p>
       </div>
     </div>
@@ -144,32 +240,29 @@ const TransformersVideo = () => {
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState(0);
-
-
   const offices = [
     {
-      title: 'Front Office',
-      description: 'Direct interface with customers, handling sales, marketing, and customer service.',
-      features: ['CRM Integration', 'Customer Portal', 'Sales Analytics', 'Marketing Automation'],
-      processes: ['Lead Generation', 'Customer Onboarding', 'Sales Pipeline Management', 'Customer Support Ticketing'],
-      transformation: 'AI-powered chatbots for 24/7 customer support, predictive analytics for sales forecasting, and personalized marketing campaigns driven by machine learning algorithms.'
+      title: "Front Office",
+      description: "Customer-facing operations and services.",
+      features: ["Customer Service", "Sales", "Marketing"],
+      processes: ["Lead Generation", "Customer Onboarding", "Complaint Resolution"],
+      transformation: "Implementing AI-powered chatbots and personalized customer journeys."
     },
     {
-      title: 'Middle Office',
-      description: 'Bridges front and back offices, focusing on risk management, compliance, and operations.',
-      features: ['Risk Assessment Tools', 'Compliance Monitoring', 'Process Automation', 'Data Analytics Dashboard'],
-      processes: ['Risk Modeling', 'Regulatory Reporting', 'Operational Efficiency Analysis', 'Quality Assurance'],
-      transformation: 'Implementing blockchain for transparent and secure transactions, using AI for real-time risk assessment, and leveraging big data for more accurate compliance monitoring.'
+      title: "Middle Office",
+      description: "Risk management and operational control.",
+      features: ["Risk Assessment", "Compliance", "Quality Control"],
+      processes: ["Risk Modeling", "Regulatory Reporting", "Audit Management"],
+      transformation: "Utilizing big data analytics for real-time risk assessment and fraud detection."
     },
     {
-      title: 'Back Office',
-      description: 'Handles administrative and support tasks, including finance, HR, and IT infrastructure.',
-      features: ['ERP System', 'HR Management Software', 'IT Service Management', 'Financial Reporting Tools'],
-      processes: ['Payroll Processing', 'IT Support Ticketing', 'Financial Reconciliation', 'Employee Onboarding'],
-      transformation: 'Cloud migration for scalable IT infrastructure, RPA (Robotic Process Automation) for routine tasks, and advanced analytics for financial forecasting and HR insights.'
-    },
+      title: "Back Office",
+      description: "Administrative and support functions.",
+      features: ["Finance", "Human Resources", "IT Support"],
+      processes: ["Payroll Processing", "Employee Onboarding", "IT Helpdesk"],
+      transformation: "Automating routine tasks with RPA and implementing cloud-based ERP systems."
+    }
   ];
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -178,7 +271,6 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-
   return (
     <div className="container mx-auto p-4">
       <BackgroundVideo />
@@ -186,11 +278,9 @@ const Dashboard = () => {
 
       <TransformersVideo />
 
-      <div className="grid grid-cols-1 gap-4 mb-8">
-        {offices.map((office, index) => (
-          <OfficeSection key={index} {...office} isActive={index === activeSection} />
-        ))}
-      </div>
+      {offices.map((office, index) => (
+        <OfficeSection key={index} {...office} />
+      ))}
 
       <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
         <div className="flex justify-center items-center mb-4">
