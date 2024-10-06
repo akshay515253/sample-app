@@ -46,7 +46,7 @@ const BackgroundVideo = () => {
   return (
     <video
       ref={videoRef}
-      style={{height : "300px"}}
+      style={{ height: "300px" }}
       className="w-full object-cover z-[-1]"
       loop
       muted
@@ -251,6 +251,7 @@ const TransformersVideo = () => {
         Your browser does not support the video tag.
       </video>
       <button
+        style={{ zIndex: 999 }}
         onClick={togglePlay}
         className="absolute bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
       >
