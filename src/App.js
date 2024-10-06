@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LogoVideo from "../src/sample-video.mp4"
 import BgVideo from "../src/bg-video.mp4"
 import * as THREE from 'three';
+import gifLogo from "../src/gif.gif"
 
 
 const BackgroundVideo = () => {
@@ -45,7 +46,8 @@ const BackgroundVideo = () => {
   return (
     <video
       ref={videoRef}
-      className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+      style={{height : "300px"}}
+      className="w-full object-cover z-[-1]"
       loop
       muted
       playsInline
@@ -143,15 +145,28 @@ const RubiksCubeScene = () => {
 };
 
 
+
+const RubiksCubeGif = () => {
+  return (
+    <div className="w-full h-64 flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
+      <img
+        src={gifLogo}
+        alt="Rubik's Cube"
+        className="w-auto h-full object-contain"
+      />
+    </div>
+  );
+};
+
+
 const OfficeSection = ({ title, description, features, processes, transformation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef(null);
-
-
   return (
     <div className="mb-4">
       <button
-        className="w-full text-left p-4 bg-blue-500 text-white rounded-t-lg focus:outline-none"
+        style={{ backgroundColor: "#DC4F88" }}
+        className="w-full text-left p-4 text-white rounded-t-lg focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         {title}
@@ -163,30 +178,43 @@ const OfficeSection = ({ title, description, features, processes, transformation
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white p-4 rounded-b-lg"
+            style={{ backgroundColor: "#FCE7F3" }}
+            className="p-4 rounded-b-lg"
             ref={contentRef}
           >
-            <p className="mb-4">{description}</p>
-            <RubiksCubeScene />
-            <h3 className="font-bold mt-4">Key Features:</h3>
-            <ul className="list-disc pl-5 mb-2">
-              {features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-            <h3 className="font-bold">Core Processes:</h3>
-            <ul className="list-disc pl-5 mb-2">
-              {processes.map((process, index) => (
-                <li key={index}>{process}</li>
-              ))}
-            </ul>
-            <h3 className="font-bold">Digital Transformation:</h3>
-            <p>{transformation}</p>
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Content Section */}
+              <div className="w-full md:w-2/3">
+                <p className="mb-4">{description}</p>
+
+                <h3 className="font-bold mt-4">Key Features:</h3>
+                <ul className="list-disc pl-5 mb-2">
+                  {features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+
+                <h3 className="font-bold">Core Processes:</h3>
+                <ul className="list-disc pl-5 mb-2">
+                  {processes.map((process, index) => (
+                    <li key={index}>{process}</li>
+                  ))}
+                </ul>
+
+                <h3 className="font-bold">Digital Transformation:</h3>
+                <p>{transformation}</p>
+              </div>
+
+              {/* GIF Section */}
+              <div className="w-full md:w-1/3 flex justify-center items-center">
+                <RubiksCubeGif />
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 };
 
 
@@ -273,14 +301,12 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <BackgroundVideo />
       <h1 className="text-4xl font-bold mb-8 text-center">Our Digital Transformation Journey</h1>
-
       <TransformersVideo />
-
       {offices.map((office, index) => (
         <OfficeSection key={index} {...office} />
       ))}
+
 
       <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
         <div className="flex justify-center items-center mb-4">
@@ -308,6 +334,7 @@ const Dashboard = () => {
           <span className="font-semibold">Workflow Definitions</span>
         </div>
       </div>
+      <BackgroundVideo />
     </div>
   );
 };
