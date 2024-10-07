@@ -1,18 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.bdcfc18c.css",
-    "main.js": "/static/js/main.bfd292fb.js",
+    "main.css": "/static/css/main.413e2cd8.css",
+    "main.js": "/static/js/main.8bc69865.js",
     "static/js/453.4cd1a15c.chunk.js": "/static/js/453.4cd1a15c.chunk.js",
     "static/media/bg-video.mp4": "/static/media/bg-video.ce47dddd775fdbed0049.mp4",
     "static/media/sample-video.mp4": "/static/media/sample-video.98d7727b028f5a0cdc6f.mp4",
     "static/media/gif.gif": "/static/media/gif.2c0bbc07c67ac7628464.gif",
+    "static/media/image.png": "/static/media/image.5a4f385951d0504049af.png",
+    "static/media/image (1).png": "/static/media/image (1).b936341449e87c5ed706.png",
+    "static/media/image (4).png": "/static/media/image (4).c5f9efdc5c91e8b5d63f.png",
+    "static/media/image (2).png": "/static/media/image (2).75be02fdd59a083d7c75.png",
+    "static/media/image (5).png": "/static/media/image (5).8490651097f5424fcfcf.png",
+    "static/media/image (3).png": "/static/media/image (3).7e6d6a91b2ee2b9b1bb1.png",
+    "static/media/earth.jpg": "/static/media/earth.59bd1261abf35bf32ba8.jpg",
     "index.html": "/index.html",
-    "main.bdcfc18c.css.map": "/static/css/main.bdcfc18c.css.map",
-    "main.bfd292fb.js.map": "/static/js/main.bfd292fb.js.map",
+    "main.413e2cd8.css.map": "/static/css/main.413e2cd8.css.map",
+    "main.8bc69865.js.map": "/static/js/main.8bc69865.js.map",
     "453.4cd1a15c.chunk.js.map": "/static/js/453.4cd1a15c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bdcfc18c.css",
-    "static/js/main.bfd292fb.js"
+    "static/css/main.413e2cd8.css",
+    "static/js/main.8bc69865.js"
   ]
 }
