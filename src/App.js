@@ -449,7 +449,7 @@ const Dashboard = () => {
         </p>
 
         <h1 className="text-center py-5 bg-blue-500 text-white m-0">Evolution of Communication</h1>
-        <div ref={timelineRef} className="w-full h-[450px]" />
+        <div ref={timelineRef} className="w-full h-[80vh]" />
         <div className="flex justify-around">
           {offices.map((_, index) => (
             <AnimatedConnection key={index} isActive={index === activeSection} />
