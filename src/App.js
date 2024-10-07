@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Brain, Building, Shield, Play, Pause, ChevronDown, ChevronUp } from 'lucide-react';
+import "./App.css"
 import { Canvas, useFrame } from '@react-three/fiber';
+import { Timeline, DataSet } from "vis-timeline/standalone";
+import "vis-timeline/styles/vis-timeline-graph2d.css";
 import { Box, OrbitControls } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import LogoVideo from "../src/sample-video.mp4"
 import BgVideo from "../src/bg-video.mp4"
 import * as THREE from 'three';
 import gifLogo from "../src/gif.gif"
-
+import image1 from "../src/Images/image.png"
+import image2 from "../src/Images/image (1).png"
+import image3 from "../src/Images/image (2).png"
+import image4 from "../src/Images/image (3).png"
+import image5 from "../src/Images/image (4).png"
+import image6 from "../src/Images/image (5).png"
+import image7 from "../src/Images/earth.jpg"
 
 const BackgroundVideo = () => {
   const videoRef = useRef(null);
@@ -268,7 +277,127 @@ const TransformersVideo = () => {
 
 
 const Dashboard = () => {
+  const timelineRef = useRef(null);
   const [activeSection, setActiveSection] = useState(0);
+
+  useEffect(() => {
+    const items = new DataSet([
+      {
+        id: 1,
+        content: `
+       <img src="${image1}" alt="Cave Paintings" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Cave Paintings</div>
+          <div class="timeline-description">Early visual communication</div>
+          <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
+        </div>
+      `,
+        start: '-35000'
+      },
+      {
+        id: 2,
+        content: `
+        <img src="${image4}" alt="Cuneiform Writing" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Cuneiform Writing</div>
+          <div class="timeline-description">Early writing system</div>
+          <div class="timeline-tech">Tech: Clay tablets, stylus</div>
+        </div>
+      `,
+        start: '-3200'
+      },
+      {
+        id: 3,
+        content: `
+        <img src="${image1}" alt="Alphabetic Writing" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Alphabetic Writing</div>
+          <div class="timeline-description">Phoenician alphabet</div>
+          <div class="timeline-tech">Tech: Ink, papyrus</div>
+        </div>
+      `,
+        start: '-1050'
+      },
+      {
+        id: 4,
+        content: `
+        <img src="${image2}" alt="Printing Press" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Printing Press</div>
+          <div class="timeline-description">Mass production of books</div>
+          <div class="timeline-tech">Tech: Movable type, mechanical press</div>
+        </div>
+      `,
+        start: '1440'
+      },
+      {
+        id: 5,
+        content: `
+        <img src="${image6}" alt="Telegraph" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Telegraph</div>
+          <div class="timeline-description">Long-distance communication</div>
+          <div class="timeline-tech">Tech: Electrical signals, Morse code</div>
+        </div>
+      `,
+        start: '1844'
+      },
+      {
+        id: 6,
+        content: `
+        <img src="${image5}" alt="Internet" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Internet (ARPANET)</div>
+          <div class="timeline-description">Global network</div>
+          <div class="timeline-tech">Tech: Packet switching, TCP/IP</div>
+        </div>
+      `,
+        start: '1969'
+      },
+      {
+        id: 7,
+        content: `
+        <img src="/api/placeholder/300/150" alt="Social Media" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">Social Media (Twitter)</div>
+          <div class="timeline-description">Real-time global communication</div>
+          <div class="timeline-tech">Tech: Web 2.0, mobile apps</div>
+        </div>
+      `,
+        start: '2006'
+      },
+      {
+        id: 8,
+        content: `
+        <img src="/api/placeholder/300/150" alt="AI Language Models" class="timeline-image">
+        <div class="timeline-content">
+          <div class="timeline-title">AI Language Models</div>
+          <div class="timeline-description">Advanced AI assistants</div>
+          <div class="timeline-tech">Tech: Neural networks, big data</div>
+        </div>
+      `,
+        start: '2020'
+      }
+    ]);
+
+    const options = {
+      zoomMin: 1000000000,
+      zoomMax: 100000000000000,
+      height: '80vh',
+      start: new Date(1000, 0, 1),
+      end: new Date(),
+    };
+
+    // Create a Timeline
+    const timeline = new Timeline(timelineRef.current, items, options);
+
+    // Cleanup function
+    return () => {
+      timeline.destroy();
+    };
+  }, []);
+
+
   const offices = [
     {
       title: "Front Office",
@@ -317,6 +446,9 @@ const Dashboard = () => {
         <p className="text-center mb-4">
           Connecting all major departments, delivering communication, and making autonomous decisions
         </p>
+
+        <h1 className="text-center py-5 bg-blue-500 text-white m-0">Evolution of Communication</h1>
+        <div ref={timelineRef} className="w-full h-[80vh]" />
         <div className="flex justify-around">
           {offices.map((_, index) => (
             <AnimatedConnection key={index} isActive={index === activeSection} />
