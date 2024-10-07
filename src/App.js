@@ -10,13 +10,14 @@ import LogoVideo from "../src/sample-video.mp4"
 import BgVideo from "../src/bg-video.mp4"
 import * as THREE from 'three';
 import gifLogo from "../src/gif.gif"
-import image1 from "../src/Images/image.png"
+import image1 from "../src/Images/cave paintings.gif"
+import imageAlp from "../src/Images/imagealp.png"
 import image2 from "../src/Images/image (1).png"
-import image3 from "../src/Images/image (2).png"
-import image4 from "../src/Images/image (3).png"
-import image5 from "../src/Images/image (4).png"
+import image3 from "../src/Images/internet.gif"
+import image4 from "../src/Images/image.png"
+import image5 from "../src/Images/DOToption 2.gif"
 import image6 from "../src/Images/image (5).png"
-import image7 from "../src/Images/earth.jpg"
+import image7 from "../src/Images/socialmedia.gif"
 
 const BackgroundVideo = () => {
   const videoRef = useRef(null);
@@ -292,7 +293,7 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
         </div>
       `,
-        start: '-35000'
+        start: new Date(-35000, 0, 1).getTime() 
       },
       {
         id: 2,
@@ -304,19 +305,19 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Clay tablets, stylus</div>
         </div>
       `,
-        start: '-3200'
+        start: new Date(-3200, 0, 1).getTime()
       },
       {
         id: 3,
         content: `
-        <img src="${image1}" alt="Alphabetic Writing" class="timeline-image">
+        <img src="${imageAlp}" alt="Alphabetic Writing" class="timeline-image">
         <div class="timeline-content">
           <div class="timeline-title">Alphabetic Writing</div>
           <div class="timeline-description">Phoenician alphabet</div>
           <div class="timeline-tech">Tech: Ink, papyrus</div>
         </div>
       `,
-        start: '-1050'
+        start: new Date(-1050, 0, 1).getTime()
       },
       {
         id: 4,
@@ -328,7 +329,7 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Movable type, mechanical press</div>
         </div>
       `,
-        start: '1440'
+        start: new Date(1440, 0, 1).getTime() 
       },
       {
         id: 5,
@@ -340,43 +341,43 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Electrical signals, Morse code</div>
         </div>
       `,
-        start: '1844'
+        start: new Date(1844, 0, 1).getTime()
       },
       {
         id: 6,
         content: `
-        <img src="${image5}" alt="Internet" class="timeline-image">
+        <img src="${image3}" alt="Internet" class="timeline-image">
         <div class="timeline-content">
           <div class="timeline-title">Internet (ARPANET)</div>
           <div class="timeline-description">Global network</div>
           <div class="timeline-tech">Tech: Packet switching, TCP/IP</div>
         </div>
       `,
-        start: '1969'
+        start: new Date(1969, 0, 1).getTime()
       },
       {
         id: 7,
         content: `
-        <img src="/api/placeholder/300/150" alt="Social Media" class="timeline-image">
+        <img src="${image7}" alt="Social Media" class="timeline-image">
         <div class="timeline-content">
           <div class="timeline-title">Social Media (Twitter)</div>
           <div class="timeline-description">Real-time global communication</div>
           <div class="timeline-tech">Tech: Web 2.0, mobile apps</div>
         </div>
       `,
-        start: '2006'
+        start: new Date(2006, 0, 1).getTime()
       },
       {
         id: 8,
         content: `
-        <img src="/api/placeholder/300/150" alt="AI Language Models" class="timeline-image">
+        <img src="${image5}" alt="AI Language Models" class="timeline-image">
         <div class="timeline-content">
           <div class="timeline-title">AI Language Models</div>
           <div class="timeline-description">Advanced AI assistants</div>
           <div class="timeline-tech">Tech: Neural networks, big data</div>
         </div>
       `,
-        start: '2020'
+        start: new Date(2020, 0, 1).getTime()
       }
     ]);
 
@@ -384,7 +385,7 @@ const Dashboard = () => {
       zoomMin: 1000000000,
       zoomMax: 100000000000000,
       height: '80vh',
-      start: new Date(1000, 0, 1),
+      start: new Date(-35000, 0, 1),
       end: new Date(),
     };
 
@@ -448,7 +449,7 @@ const Dashboard = () => {
         </p>
 
         <h1 className="text-center py-5 bg-blue-500 text-white m-0">Evolution of Communication</h1>
-        <div ref={timelineRef} className="w-full h-[80vh]" />
+        <div ref={timelineRef} className="w-full h-[450px]" />
         <div className="flex justify-around">
           {offices.map((_, index) => (
             <AnimatedConnection key={index} isActive={index === activeSection} />
