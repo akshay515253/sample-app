@@ -293,7 +293,7 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
         </div>
       `,
-        start: new Date(-35000, 0, 1).getTime() 
+        start: new Date(-35000, 0, 1).getTime()
       },
       {
         id: 2,
@@ -329,7 +329,7 @@ const Dashboard = () => {
           <div class="timeline-tech">Tech: Movable type, mechanical press</div>
         </div>
       `,
-        start: new Date(1440, 0, 1).getTime() 
+        start: new Date(1440, 0, 1).getTime()
       },
       {
         id: 5,
@@ -382,17 +382,15 @@ const Dashboard = () => {
     ]);
 
     const options = {
-      zoomMin: 1000000000,
-      zoomMax: 100000000000000,
+      zoomMin: 31_536_000_000 * 100,
+      zoomMax: 31_536_000_000 * 10000,
       height: '80vh',
-      start: new Date(-35000, 0, 1),
+      start: new Date(-10000, 0, 1),
       end: new Date(),
     };
 
-    // Create a Timeline
     const timeline = new Timeline(timelineRef.current, items, options);
 
-    // Cleanup function
     return () => {
       timeline.destroy();
     };
