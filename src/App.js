@@ -280,122 +280,128 @@ const TransformersVideo = () => {
 const Dashboard = () => {
   const timelineRef = useRef(null);
   const [activeSection, setActiveSection] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
-    const items = new DataSet([
-      {
-        id: 1,
-        content: `
-       <img src="${image1}" alt="Cave Paintings" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Cave Paintings</div>
-          <div class="timeline-description">Early visual communication</div>
-          <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
-        </div>
-      `,
-        start: new Date(-35000, 0, 1).getTime()
-      },
-      {
-        id: 2,
-        content: `
-        <img src="${image4}" alt="Cuneiform Writing" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Cuneiform Writing</div>
-          <div class="timeline-description">Early writing system</div>
-          <div class="timeline-tech">Tech: Clay tablets, stylus</div>
-        </div>
-      `,
-        start: new Date(-3200, 0, 1).getTime()
-      },
-      {
-        id: 3,
-        content: `
-        <img src="${imageAlp}" alt="Alphabetic Writing" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Alphabetic Writing</div>
-          <div class="timeline-description">Phoenician alphabet</div>
-          <div class="timeline-tech">Tech: Ink, papyrus</div>
-        </div>
-      `,
-        start: new Date(-1050, 0, 1).getTime()
-      },
-      {
-        id: 4,
-        content: `
-        <img src="${image2}" alt="Printing Press" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Printing Press</div>
-          <div class="timeline-description">Mass production of books</div>
-          <div class="timeline-tech">Tech: Movable type, mechanical press</div>
-        </div>
-      `,
-        start: new Date(1440, 0, 1).getTime()
-      },
-      {
-        id: 5,
-        content: `
-        <img src="${image6}" alt="Telegraph" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Telegraph</div>
-          <div class="timeline-description">Long-distance communication</div>
-          <div class="timeline-tech">Tech: Electrical signals, Morse code</div>
-        </div>
-      `,
-        start: new Date(1844, 0, 1).getTime()
-      },
-      {
-        id: 6,
-        content: `
-        <img src="${image3}" alt="Internet" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Internet (ARPANET)</div>
-          <div class="timeline-description">Global network</div>
-          <div class="timeline-tech">Tech: Packet switching, TCP/IP</div>
-        </div>
-      `,
-        start: new Date(1969, 0, 1).getTime()
-      },
-      {
-        id: 7,
-        content: `
-        <img src="${image7}" alt="Social Media" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">Social Media (Twitter)</div>
-          <div class="timeline-description">Real-time global communication</div>
-          <div class="timeline-tech">Tech: Web 2.0, mobile apps</div>
-        </div>
-      `,
-        start: new Date(2006, 0, 1).getTime()
-      },
-      {
-        id: 8,
-        content: `
-        <img src="${image5}" alt="AI Language Models" class="timeline-image">
-        <div class="timeline-content">
-          <div class="timeline-title">AI Language Models</div>
-          <div class="timeline-description">Advanced AI assistants</div>
-          <div class="timeline-tech">Tech: Neural networks, big data</div>
-        </div>
-      `,
-        start: new Date(2020, 0, 1).getTime()
-      }
-    ]);
-
-    const options = {
-      zoomMin: 31_536_000_000 * 100,
-      zoomMax: 31_536_000_000 * 10000,
-      height: '80vh',
-      start: new Date(-10000, 0, 1),
-      end: new Date(),
-    };
-
-    const timeline = new Timeline(timelineRef.current, items, options);
-
-    return () => {
-      timeline.destroy();
-    };
-  }, []);
-
+    if (isOpen && timelineRef.current) {
+      const items = new DataSet([
+        {
+          id: 1,
+          content: `
+         <img src="${image1}" alt="Cave Paintings" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Cave Paintings</div>
+            <div class="timeline-description">Early visual communication</div>
+            <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
+          </div>
+        `,
+          start: new Date(-35000, 0, 1).getTime()
+        },
+        {
+          id: 2,
+          content: `
+          <img src="${image4}" alt="Cuneiform Writing" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Cuneiform Writing</div>
+            <div class="timeline-description">Early writing system</div>
+            <div class="timeline-tech">Tech: Clay tablets, stylus</div>
+          </div>
+        `,
+          start: new Date(-3200, 0, 1).getTime()
+        },
+        {
+          id: 3,
+          content: `
+          <img src="${imageAlp}" alt="Alphabetic Writing" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Alphabetic Writing</div>
+            <div class="timeline-description">Phoenician alphabet</div>
+            <div class="timeline-tech">Tech: Ink, papyrus</div>
+          </div>
+        `,
+          start: new Date(-1050, 0, 1).getTime()
+        },
+        {
+          id: 4,
+          content: `
+          <img src="${image2}" alt="Printing Press" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Printing Press</div>
+            <div class="timeline-description">Mass production of books</div>
+            <div class="timeline-tech">Tech: Movable type, mechanical press</div>
+          </div>
+        `,
+          start: new Date(1440, 0, 1).getTime()
+        },
+        {
+          id: 5,
+          content: `
+          <img src="${image6}" alt="Telegraph" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Telegraph</div>
+            <div class="timeline-description">Long-distance communication</div>
+            <div class="timeline-tech">Tech: Electrical signals, Morse code</div>
+          </div>
+        `,
+          start: new Date(1844, 0, 1).getTime()
+        },
+        {
+          id: 6,
+          content: `
+          <img src="${image3}" alt="Internet" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Internet (ARPANET)</div>
+            <div class="timeline-description">Global network</div>
+            <div class="timeline-tech">Tech: Packet switching, TCP/IP</div>
+          </div>
+        `,
+          start: new Date(1969, 0, 1).getTime()
+        },
+        {
+          id: 7,
+          content: `
+          <img src="${image7}" alt="Social Media" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">Social Media (Twitter)</div>
+            <div class="timeline-description">Real-time global communication</div>
+            <div class="timeline-tech">Tech: Web 2.0, mobile apps</div>
+          </div>
+        `,
+          start: new Date(2006, 0, 1).getTime()
+        },
+        {
+          id: 8,
+          content: `
+          <img src="${image5}" alt="AI Language Models" class="timeline-image">
+          <div class="timeline-content">
+            <div class="timeline-title">AI Language Models</div>
+            <div class="timeline-description">Advanced AI assistants</div>
+            <div class="timeline-tech">Tech: Neural networks, big data</div>
+          </div>
+        `,
+          start: new Date(2020, 0, 1).getTime()
+        }
+      ]);
+  
+      const options = {
+        zoomMin: 31_536_000_000 * 100,
+        zoomMax: 31_536_000_000 * 10000,
+        height: '80vh',
+        start: new Date(-10000, 0, 1),
+        end: new Date(),
+      };
+  
+      const timeline = new Timeline(timelineRef.current, items, options);
+  
+      return () => {
+        timeline.destroy();
+      };
+    }
+  }, [isOpen]); 
 
   const offices = [
     {
@@ -446,8 +452,10 @@ const Dashboard = () => {
           Connecting all major departments, delivering communication, and making autonomous decisions
         </p>
 
-        <h1 className="text-center py-5 bg-blue-500 text-white m-0">Evolution of Communication</h1>
-        <div ref={timelineRef} className="w-full h-[80vh]" />
+        <h1 className="text-center py-5 bg-blue-500 text-white m-0" onClick={toggleAccordion}>Evolution of Communication</h1>
+        {isOpen && (
+          <div ref={timelineRef} className="w-full h-[80vh]" />
+        )}
         <div className="flex justify-around">
           {offices.map((_, index) => (
             <AnimatedConnection key={index} isActive={index === activeSection} />
