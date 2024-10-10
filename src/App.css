@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+.background-image {
+background-color: #F9F9F9;
+}
+
+.content-title-card{
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -87,7 +97,8 @@ img {
 
 .carousel-container {
   max-width: 90%;
-  margin: 5% auto; /* Center the carousel */
+  margin: 5% auto;
+  /* Center the carousel */
 }
 
 .card {
@@ -97,22 +108,26 @@ img {
   padding: 5px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s; /* Smooth hover effect */
+  transition: transform 0.2s;
+  /* Smooth hover effect */
 }
 
-.card-view{
+.card-view {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   width: 90%;
-  margin: 5% auto; 
+  margin: 5% auto;
 }
 
 .card img {
-  width: 100%; /* Responsive image */
+  width: 100%;
+  /* Responsive image */
   height: auto;
   border-radius: 4px;
 }
 
 .card:hover {
-  transform: scale(1.05); /* Zoom effect on hover */
+  transform: scale(1.05);
+  /* Zoom effect on hover */
 }

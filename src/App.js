@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Brain, Building, Shield, Play, Pause, ChevronDown, ChevronUp, ArrowUp, ArrowBigDown, ArrowBigUp } from 'lucide-react';
+import { ArrowRight, Brain, Building, Shield, Play, Pause, ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import "./App.css"
-import { Canvas, useFrame } from '@react-three/fiber';
 import { Timeline, DataSet } from "vis-timeline/standalone";
+import { Image } from "antd"
+import gifTitle from "../src/title-bg.gif"
 import "vis-timeline/styles/vis-timeline-graph2d.css";
-import { Box, OrbitControls } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
+import dopsContent from "../src/DOTcontent1.jpg"
+import dopsGif from "../src/DOToption 2.gif"
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import LogoVideo from "../src/sample-video.mp4"
-import BgVideo from "../src/bg-video.mp4"
-import * as THREE from 'three';
-import gifSrc from "../src/gif.gif"
+import gifBg from "../src/bgImage.gif"
+import gifBack from "../src/dragon.png"
+import gifSrc from "../src/gif1.gif"
 import image1 from "../src/Images/cave paintings.gif"
 import imageAlp from "../src/Images/imagealp.png"
 import image2 from "../src/Images/image (1).png"
@@ -18,7 +21,6 @@ import image4 from "../src/Images/image.png"
 import image5 from "../src/Images/DOToption 2.gif"
 import image6 from "../src/Images/image (5).png"
 import image7 from "../src/Images/socialmedia.gif"
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -57,51 +59,92 @@ const BackgroundVideo = () => {
 
 
   return (
-    <video
-      ref={videoRef}
+    <img
       style={{ height: "300px" }}
       className="w-full object-cover z-[-1]"
-      loop
-      muted
-      playsInline
+      src={gifBg}
     >
-      <source src={BgVideo} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    </img>
   );
 };
 
-const OfficeSection = ({ title, description, features, processes, transformation }) => {
+const OfficeSection = ({ title, description, features, processes, transformation, gifImg, imgFile }) => {
+
+  const controls = useAnimation();
+  
+  // `useInView` hook to detect when the card comes into view
+  const [ref, inView] = useInView({
+    triggerOnce: true, // Animation triggers once when in view
+    threshold: 0.2, // Trigger when 20% of the card is visible
+  });
+
+  // Start animation when the card is in view
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        opacity: 1,
+        x: 0, // Move to center (original position)
+        transition: { duration: 0.6, ease: "easeOut" },
+      });
+    }
+  }, [controls, inView]);
+
   return (
-    <motion.div
-      className="card-container shadow-lg rounded-lg overflow-hidden"
-      whileHover={{ scale: 1.05 }}
-      style={{ backgroundColor: "#FCE7F3" }}
-    >
-      <div className="p-4 flex flex-col">
-        <h2 className="font-bold text-xl mb-2" style={{ color: '#DC4F88' }}>{title}</h2>
-        <p className="text-gray-700 mb-4">{description}</p>
+    <div style={{ gap: "20px" }} className="flex justify-between">
+       <motion.div
+        className="card-container shadow-lg rounded-lg overflow-hidden flex-1 m-2"
+        whileHover={{ scale: 1.05 }}
+        style={{ backgroundColor: "#FCE7F3" }}
+        ref={ref} // Ref for tracking when in view
+        initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+        animate={controls} // Controlled animation
+      >
+        <div className="p-4 flex flex-col">
+          <h2 className="font-bold text-xl mb-2" style={{ color: '#DC4F88' }}>{title}</h2>
+          <p className="text-gray-700 mb-4">{description}</p>
+          
+          <h3 className="font-bold">Digital Transformation:</h3>
+          <p className="mb-4">{transformation}</p>
 
-        <h3 className="font-bold mt-4">Key Features:</h3>
-        <ul className="list-disc pl-5 mb-2">
-          {features.map((feature, index) => (
-            <li key={index}>{feature}</li>
-          ))}
-        </ul>
+          <h3 className="font-bold mt-4">Key Features:</h3>
+          <p className="list-disc pl-5 mb-2">{features}</p>
 
-        <h3 className="font-bold">Core Processes:</h3>
-        <ul className="list-disc pl-5 mb-2">
-          {processes.map((process, index) => (
-            <li key={index}>{process}</li>
-          ))}
-        </ul>
+          <h3 className="font-bold">Core Processes:</h3>
+          <ul className="list-disc pl-5 mb-2">
+            {processes.map((process, index) => (
+              <li key={index}>{process}</li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
 
-        <h3 className="font-bold">Digital Transformation:</h3>
-        <p className="mb-4">{transformation}</p>
+      {/* Right Section with Two Cards */}
+      <div className="flex flex-col flex-1">
+        {/* First Card on the Right */}
+        <motion.div
+          className="card-container shadow-lg rounded-lg overflow-hidden mb-4"
+          whileHover={{ scale: 1.05 }}
+          style={{ backgroundColor: "#FCE7F3" }}
+          ref={ref}
+          initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+          animate={controls}
+        >
+          <img src={gifImg} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+        </motion.div>
 
         {/* GIF Section */}
+        <motion.div
+          className="card-container shadow-lg rounded-lg overflow-hidden"
+          whileHover={{ scale: 1.05 }}
+          style={{ backgroundColor: "#FCE7F3" }}
+          ref={ref}
+          initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+          animate={controls}
+        >
+          <img src={imgFile} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -131,7 +174,7 @@ const TransformersVideo = () => {
     <div className="relative w-full aspect-video">
       <video
         ref={videoRef}
-        className="w-full h-[350px] object-cover rounded-lg"
+        className="w-full h-full object-cover rounded-lg"
         loop
         muted
       >
@@ -341,26 +384,23 @@ const Dashboard = () => {
 
   const offices = [
     {
-      title: "Front Office",
-      description: "Customer-facing operations and services.",
-      features: ["Customer Service", "Sales", "Marketing"],
-      processes: ["Lead Generation", "Customer Onboarding", "Complaint Resolution"],
-      transformation: "Implementing AI-powered chatbots and personalized customer journeys."
+      title: "Folded into Perfection: The Harmony of Wrapdrive",
+      description: "In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony",
+      features: "Wrapdrive is the vessel that brings order to your digital landscape, weaving together disparate threads into a cohesive tapestry. With each integration, the boundaries between systems blur, and the beauty of simplicity emerges.",
+      processes: ["Protects the delicate balance of your organization's ecosystem", "Fosters collaboration and knowledge sharing", "Unfolds new possibilities for growth and productivity", "Experience the elegance of Wrapdrive, where complexity meets simplicity."],
+      transformation: "As the intricate patterns of Origami reveal hidden symmetry, Wrapdrive uncovers new efficiencies, streamlining workflows and unlocking innovation. By consolidating access and security, Wrapdrive:",
+      gifImg: gifBack,
+      imgFile: gifSrc
     },
     {
-      title: "Middle Office",
-      description: "Risk management and operational control.",
-      features: ["Risk Assessment", "Compliance", "Quality Control"],
-      processes: ["Risk Modeling", "Regulatory Reporting", "Audit Management"],
-      transformation: "Utilizing big data analytics for real-time risk assessment and fraud detection."
+      title: "Introducing DOT: The Shape-Shifting AI Catalyst",
+      description: "Imagine a force that seamlessly integrates with your organization's core, adapting to its unique contours. Inspired by the timeless puzzle of Tetris, DOT is the compounding AI system that revolutionizes digital transformation.",
+      features: "Risk Assessment Compliance Quality Control",
+      processes: ["Identify gaps and optimize workflows", "Enhance user experiences through intuitive interfaces", "Enhance user experiences through intuitive interfaces", "Fortify security with adaptive threat detection"],
+      transformation: "Born from our founding team's decade-long expertise and the latest advancements in AI, DOT is the master builder of efficient systems. This formless and ominous intelligence shapeshifts to:Understand legacy systems and modernization needs,Streamline conversational flows with cutting-edge AI,Seamlessly integrate with existing infrastructure",
+      gifImg: dopsGif,
+      imgFile: dopsContent
     },
-    {
-      title: "Back Office",
-      description: "Administrative and support functions.",
-      features: ["Finance", "Human Resources", "IT Support"],
-      processes: ["Payroll Processing", "Employee Onboarding", "IT Helpdesk"],
-      transformation: "Automating routine tasks with RPA and implementing cloud-based ERP systems."
-    }
   ];
 
   useEffect(() => {
@@ -371,72 +411,67 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center">Our Digital Transformation Journey</h1>
+    <div className="background-image container mx-auto p-4">
+      <div className='content'>
 
-      <div
-        className="carousel-container"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Slider ref={sliderRef} {...settings}>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <div className="card" key={index} onClick={handleSlideClick}>
-              <TransformersVideo />
-            </div>
+        <div className='content-title-card'>
+          <div>
+            <Image preview={false} src={gifTitle} />
+          </div>
+          <h1 className="text-4xl font-bold text-center">Our Digital Transformation Journey</h1>
+          <div>
+            <Image preview={false} src={gifTitle} />
+          </div>
+        </div>
+        <div className='card-view'>
+          {offices.map((office, index) => (
+            <OfficeSection key={index} {...office} />
           ))}
-        </Slider>
-      </div>
-
-      <div className='card-view'>
-        {offices.map((office, index) => (
-          <OfficeSection key={index} {...office} />
-        ))}
-        <div style={{ width: "48%" }} className="flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
-          <img
-            src={gifSrc}
-            alt="logo"
-            className="w-auto h-full"
-          />
+          {/* < div style={{ width: "48%" }} className="flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
+            <img
+              src={gifSrc}
+              alt="logo"
+              className="w-auto h-full"
+            />
+          </div> */}
         </div>
-      </div>
+        <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
+          <div className="flex justify-center items-center mb-4">
+            <Brain className="w-12 h-12 text-purple-600" />
+            <h2 className="text-2xl font-semibold ml-2">DOT AI System</h2>
+          </div>
+          <p className="text-center mb-4">
+            Connecting all major departments, delivering communication, and making autonomous decisions
+          </p>
 
-      <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
-        <div className="flex justify-center items-center mb-4">
-          <Brain className="w-12 h-12 text-purple-600" />
-          <h2 className="text-2xl font-semibold ml-2">DOT AI System</h2>
-        </div>
-        <p className="text-center mb-4">
-          Connecting all major departments, delivering communication, and making autonomous decisions
-        </p>
-
-        <h1 style={{ backgroundColor: "rgb(252, 231, 243)", color: "#DD4D85",display:"flex",justifyContent:"space-between",padding:"1.5%" }} className="text-center py-5 m-0" onClick={toggleAccordion}>
-          Evolution of Communication
-          {isOpen ? (
-            <ArrowBigUp className="ml-2" /> // Up Arrow when accordion is open
-          ) : (
-            <ArrowBigDown className="ml-2" /> // Down Arrow when accordion is closed
+          <h1 style={{ backgroundColor: "rgb(252, 231, 243)", color: "#DD4D85", display: "flex", justifyContent: "space-between", padding: "1.5%" }} className="text-center py-5 m-0" onClick={toggleAccordion}>
+            Evolution of Communication
+            {isOpen ? (
+              <ArrowBigUp className="ml-2" /> // Up Arrow when accordion is open
+            ) : (
+              <ArrowBigDown className="ml-2" /> // Down Arrow when accordion is closed
+            )}
+          </h1>
+          {isOpen && (
+            <div ref={timelineRef} className="w-full h-[80vh]" />
           )}
-        </h1>
-        {isOpen && (
-          <div ref={timelineRef} className="w-full h-[80vh]" />
-        )}
-        <div className="flex justify-around">
-          {offices.map((_, index) => (
-            <AnimatedConnection key={index} isActive={index === activeSection} />
-          ))}
+          <div className="flex justify-around">
+            {offices.map((_, index) => (
+              <AnimatedConnection key={index} isActive={index === activeSection} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="flex justify-between items-center p-4 border rounded-lg bg-gray-100">
-        <div className="flex items-center">
-          <Shield className="w-8 h-8 text-green-600 mr-2" />
-          <span className="font-semibold">Rule Engines</span>
-        </div>
-        <ArrowRight className="w-6 h-6" />
-        <div className="flex items-center">
-          <Building className="w-8 h-8 text-blue-600 mr-2" />
-          <span className="font-semibold">Workflow Definitions</span>
+        <div className="flex justify-between items-center p-4 border rounded-lg bg-gray-100">
+          <div className="flex items-center">
+            <Shield className="w-8 h-8 text-green-600 mr-2" />
+            <span className="font-semibold">Rule Engines</span>
+          </div>
+          <ArrowRight className="w-6 h-6" />
+          <div className="flex items-center">
+            <Building className="w-8 h-8 text-blue-600 mr-2" />
+            <span className="font-semibold">Workflow Definitions</span>
+          </div>
         </div>
       </div>
     </div>
