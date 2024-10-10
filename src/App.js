@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Brain, Building, Shield, Play, Pause, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, Brain, Building, Shield, Play, Pause, ChevronDown, ChevronUp, ArrowUp, ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import "./App.css"
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Timeline, DataSet } from "vis-timeline/standalone";
@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LogoVideo from "../src/sample-video.mp4"
 import BgVideo from "../src/bg-video.mp4"
 import * as THREE from 'three';
-import gifLogo from "../src/gif.gif"
+import gifSrc from "../src/gif.gif"
 import image1 from "../src/Images/cave paintings.gif"
 import imageAlp from "../src/Images/imagealp.png"
 import image2 from "../src/Images/image (1).png"
@@ -18,6 +18,9 @@ import image4 from "../src/Images/image.png"
 import image5 from "../src/Images/DOToption 2.gif"
 import image6 from "../src/Images/image (5).png"
 import image7 from "../src/Images/socialmedia.gif"
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const BackgroundVideo = () => {
   const videoRef = useRef(null);
@@ -68,168 +71,43 @@ const BackgroundVideo = () => {
   );
 };
 
-const RubiksCube = () => {
-  const groupRef = useRef();
-  const [chips, setChips] = useState([]);
-
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.x += 0.005;
-      groupRef.current.rotation.y += 0.005;
-    }
-  });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (chips.length < 26) {
-        const newChip = {
-          id: Date.now(),
-          position: [
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10
-          ],
-          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-          isInside: false
-        };
-        setChips(prevChips => [...prevChips, newChip]);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [chips]);
-
-  return (
-    <group ref={groupRef}>
-      <Box args={[3, 3, 3]} >
-        <meshStandardMaterial color="gray" transparent opacity={0.5} />
-      </Box>
-      {chips.map((chip) => (
-        <DataChip
-          key={chip.id}
-          position={[
-            chip.isInside ? 0 : Math.sign(chip.position[0]) * 1.5,
-            chip.isInside ? 0 : Math.sign(chip.position[1]) * 1.5,
-            chip.isInside ? 0 : Math.sign(chip.position[2]) * 1.5
-          ]}
-          color={chip.color}
-        />
-      ))}
-    </group>
-  );
-};
-
-const DataChip = ({ position, color }) => {
-  const meshRef = useRef();
-
-  useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.position.lerp(new THREE.Vector3(...position), 0.1);
-    }
-  });
-
-  return (
-    <Box
-      ref={meshRef}
-      args={[0.2, 0.2, 0.05]}
-    >
-      <meshStandardMaterial color={color} />
-    </Box>
-  );
-};
-
-
-
-
-const RubiksCubeScene = () => {
-  return (
-    <div style={{ width: '100%', height: '300px' }}>
-      <Canvas camera={{ position: [0, 0, 10] }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <RubiksCube />
-        <OrbitControls />
-      </Canvas>
-    </div>
-  );
-};
-
-
-
-const RubiksCubeGif = () => {
-  return (
-    <div className="w-full h-64 flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
-      <img
-        src={gifLogo}
-        alt="Rubik's Cube"
-        className="w-auto h-full object-contain"
-      />
-    </div>
-  );
-};
-
-
 const OfficeSection = ({ title, description, features, processes, transformation }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentRef = useRef(null);
   return (
-    <div className="mb-4">
-      <button
-        style={{ backgroundColor: "#DC4F88" }}
-        className="w-full text-left p-4 text-white rounded-t-lg focus:outline-none"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {title}
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ backgroundColor: "#FCE7F3" }}
-            className="p-4 rounded-b-lg"
-            ref={contentRef}
-          >
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Content Section */}
-              <div className="w-full md:w-2/3">
-                <p className="mb-4">{description}</p>
+    <motion.div
+      className="card-container shadow-lg rounded-lg overflow-hidden"
+      whileHover={{ scale: 1.05 }}
+      style={{ backgroundColor: "#FCE7F3" }}
+    >
+      <div className="p-4 flex flex-col">
+        <h2 className="font-bold text-xl mb-2" style={{ color: '#DC4F88' }}>{title}</h2>
+        <p className="text-gray-700 mb-4">{description}</p>
 
-                <h3 className="font-bold mt-4">Key Features:</h3>
-                <ul className="list-disc pl-5 mb-2">
-                  {features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
+        <h3 className="font-bold mt-4">Key Features:</h3>
+        <ul className="list-disc pl-5 mb-2">
+          {features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
+        </ul>
 
-                <h3 className="font-bold">Core Processes:</h3>
-                <ul className="list-disc pl-5 mb-2">
-                  {processes.map((process, index) => (
-                    <li key={index}>{process}</li>
-                  ))}
-                </ul>
+        <h3 className="font-bold">Core Processes:</h3>
+        <ul className="list-disc pl-5 mb-2">
+          {processes.map((process, index) => (
+            <li key={index}>{process}</li>
+          ))}
+        </ul>
 
-                <h3 className="font-bold">Digital Transformation:</h3>
-                <p>{transformation}</p>
-              </div>
+        <h3 className="font-bold">Digital Transformation:</h3>
+        <p className="mb-4">{transformation}</p>
 
-              {/* GIF Section */}
-              <div className="w-full md:w-1/3 flex justify-center items-center">
-                <RubiksCubeGif />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
+        {/* GIF Section */}
+      </div>
+    </motion.div>
+  );
 };
 
 
 const AnimatedConnection = ({ isActive }) => (
-  <div className={`h-1 bg-blue-500 transition-all duration-500 ${isActive ? 'w-full' : 'w-0'}`} />
+  <div style={{ backgroundColor: "#DD4D85" }} className={`h-1 transition-all duration-500 ${isActive ? 'w-full' : 'w-0'}`} />
 );
 
 
@@ -250,10 +128,10 @@ const TransformersVideo = () => {
 
 
   return (
-    <div className="relative w-full aspect-video mb-8">
+    <div className="relative w-full aspect-video">
       <video
         ref={videoRef}
-        className="w-full h-full object-cover rounded-lg"
+        className="w-full h-[350px] object-cover rounded-lg"
         loop
         muted
       >
@@ -285,6 +163,64 @@ const Dashboard = () => {
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+  const [isPaused, setIsPaused] = useState(false);
+  const sliderRef = useRef(null);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: '60px',
+    autoplay: true,
+    autoplaySpeed: 1000, // Adjust autoplay speed (in milliseconds)
+    beforeChange: () => {
+      if (isPaused) {
+        sliderRef.current.slickPlay(); // Resume autoplay
+        setIsPaused(false);
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  // Pause autoplay when mouse enters
+  const handleMouseEnter = () => {
+    sliderRef.current.slickPause(); // Pause autoplay
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    sliderRef.current.slickPlay(); // Resume autoplay
+    setIsPaused(false);
+  };
+
+  const handleSlideClick = () => {
+    if (isPaused) {
+      sliderRef.current.slickPlay(); // Resume autoplay
+    } else {
+      sliderRef.current.slickPause(); // Pause autoplay
+    }
+    setIsPaused(!isPaused);
+  };
+
 
   useEffect(() => {
     if (isOpen && timelineRef.current) {
@@ -386,7 +322,7 @@ const Dashboard = () => {
           start: new Date(2020, 0, 1).getTime()
         }
       ]);
-  
+
       const options = {
         zoomMin: 31_536_000_000 * 100,
         zoomMax: 31_536_000_000 * 10000,
@@ -394,14 +330,14 @@ const Dashboard = () => {
         start: new Date(-10000, 0, 1),
         end: new Date(),
       };
-  
+
       const timeline = new Timeline(timelineRef.current, items, options);
-  
+
       return () => {
         timeline.destroy();
       };
     }
-  }, [isOpen]); 
+  }, [isOpen]);
 
   const offices = [
     {
@@ -436,12 +372,34 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-8 text-center">Our Digital Transformation Journey</h1>
-      <TransformersVideo />
-      {offices.map((office, index) => (
-        <OfficeSection key={index} {...office} />
-      ))}
+      <h1 className="text-4xl font-bold text-center">Our Digital Transformation Journey</h1>
 
+      <div
+        className="carousel-container"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Slider ref={sliderRef} {...settings}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div className="card" key={index} onClick={handleSlideClick}>
+              <TransformersVideo />
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      <div className='card-view'>
+        {offices.map((office, index) => (
+          <OfficeSection key={index} {...office} />
+        ))}
+        <div style={{ width: "48%" }} className="flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
+          <img
+            src={gifSrc}
+            alt="logo"
+            className="w-auto h-full"
+          />
+        </div>
+      </div>
 
       <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
         <div className="flex justify-center items-center mb-4">
@@ -452,7 +410,14 @@ const Dashboard = () => {
           Connecting all major departments, delivering communication, and making autonomous decisions
         </p>
 
-        <h1 className="text-center py-5 bg-blue-500 text-white m-0" onClick={toggleAccordion}>Evolution of Communication</h1>
+        <h1 style={{ backgroundColor: "rgb(252, 231, 243)", color: "#DD4D85",display:"flex",justifyContent:"space-between",padding:"1.5%" }} className="text-center py-5 m-0" onClick={toggleAccordion}>
+          Evolution of Communication
+          {isOpen ? (
+            <ArrowBigUp className="ml-2" /> // Up Arrow when accordion is open
+          ) : (
+            <ArrowBigDown className="ml-2" /> // Down Arrow when accordion is closed
+          )}
+        </h1>
         {isOpen && (
           <div ref={timelineRef} className="w-full h-[80vh]" />
         )}
@@ -474,7 +439,6 @@ const Dashboard = () => {
           <span className="font-semibold">Workflow Definitions</span>
         </div>
       </div>
-      <BackgroundVideo />
     </div>
   );
 };

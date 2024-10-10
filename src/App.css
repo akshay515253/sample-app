@@ -84,3 +84,35 @@ img {
   font-size: 11px;
   color: #7f8c8d;
 }
+
+.carousel-container {
+  max-width: 90%;
+  margin: 5% auto; /* Center the carousel */
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.card-view{
+  display: flex;
+  gap: 20px;
+  width: 90%;
+  margin: 5% auto; 
+}
+
+.card img {
+  width: 100%; /* Responsive image */
+  height: auto;
+  border-radius: 4px;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
+}
