@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Brain, Building, Shield, Play, Pause, ArrowBigDown, ArrowBigUp } from 'lucide-react';
+import { ArrowRight, Building, Shield } from 'lucide-react';
 import "./App.css"
-import { Timeline, DataSet } from "vis-timeline/standalone";
 import Slider from 'react-slick';
 import { Image, Row, Col } from "antd"
 import gifTitle from "../src/title-bg.gif"
@@ -10,19 +9,23 @@ import dopsContent from "../src/DOTcontent1.jpg"
 import dopsGif from "../src/DOToption 2.gif"
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import gifBg from "../src/bgImage.gif"
 import gifBack from "../src/dragon.png"
 import gifSrc from "../src/gif1.gif"
-import image1 from "../src/Images/cave paintings.gif"
-import imageAlp from "../src/Images/imagealp.png"
-import image2 from "../src/Images/image (1).png"
-import image3 from "../src/Images/internet.gif"
-import image4 from "../src/Images/image.png"
-import image5 from "../src/Images/DOToption 2.gif"
-import image6 from "../src/Images/image (5).png"
-import image7 from "../src/Images/socialmedia.gif"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import groupPic from "../src/founders_new-fotor-ai-art-effects-20241011163944-transformed.png"
+import giri from "../src/giri.png"
+import abishek from "../src/Abhishek.png"
+import andrew from "../src/Andrew.png"
+import eshwar from "../src/Easwar-Murthy-CEO.png"
+import himanshu from "../src/HImanshu.png"
+import jefferson from "../src/Jefferson.png"
+import dotImage1 from "../src/dotImage1.png"
+import dotImage2 from "../src/dotImage2.png"
+import dotImage3 from "../src/dotImage3.png"
+import dotImage4 from "../src/dotImage4.png"
+import dotImage5 from "../src/dotImage5.png"
+import videoMp4 from "../src/video.mp4"
 
 const OfficeSection = () => {
 
@@ -44,7 +47,6 @@ const OfficeSection = () => {
 
   const ref1 = useRef(null);
 
-  // Carousel settings for smooth transitions
   const settings = {
     dots: true,
     infinite: true,
@@ -52,13 +54,13 @@ const OfficeSection = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
   };
 
   return (
     <>
-      <Row style={{ display: "flex", alignItems: "center" }}>
-        <Col xl={10} sm={24} xs={24} lg={10} md={10}>
+      <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <Col xl={8} sm={24} xs={24} lg={8} md={8}>
           <h1 style={{ textAlign: "center" }} className="title">Folded into Perfection: The Harmony of Wrapdrive</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
@@ -120,7 +122,7 @@ const OfficeSection = () => {
         </Col>
       </Row>
 
-      <Row style={{ display: "flex", alignItems: "center" }}>
+      <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <Col xl={14} md={14} lg={14} xs={24} sm={24}>
           <Row style={{ display: "flex", flexDirection: "column" }}>
             <motion.div
@@ -147,7 +149,7 @@ const OfficeSection = () => {
           </Row>
         </Col>
 
-        <Col xl={10} sm={24} xs={24} lg={10} md={10}>
+        <Col xl={8} sm={24} xs={24} lg={8} md={8}>
           <h1 style={{ textAlign: "center" }} className="title">Introducing DOT: The Shape-Shifting AI Catalyst</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
@@ -202,135 +204,117 @@ const OfficeSection = () => {
           </motion.div>
         </Col>
       </Row>
+
+      <Row style={{ display: "flex", alignItems: "center", gap: "20px", justifyContent: "space-around" }}>
+        <Col xl={8} md={8} lg={8} xs={24} sm={24}>
+          <h1 style={{ textAlign: "center" }} className="title">Our Story</h1>
+          <div style={{ textAlign: "center" }}>
+            <p className="closing">
+              {`Easwar Murthy and Himanshu Gupta co-founded iorta Technology Solutions in 2017.
+
+              Before stepping out on their own, Easwar and Himanshu spent years in techno-functional roles within prominent corporations in the insurance industry.
+
+              Driven by a shared vision to address industry-wide challenges using technology, they embarked on a journey to make a difference.
+
+              It’s been 7 years since then.
+
+              Today, iorta stands as a leading InsurTech company in India, making transformative changes that impact the lives of enterprise users and end-users of financial platforms.`}
+            </p>
+          </div>
+        </Col>
+        <Col xl={11} sm={24} xs={24} lg={11} md={11}>
+          <motion.div
+            className="card-container overflow-hidden flex-1 m-2"
+            whileHover={{ scale: 1.05 }}
+            ref={ref1}
+            initial={{ opacity: 0, x: -200 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <Slider {...settings}>
+              <div>
+                <img src={groupPic} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
+              </div>
+
+              <div>
+                <img src={himanshu} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    HIMANSHU GUPTA
+                  </div>
+                  <div>
+                    Founder & Chief Operating Officer (COO)
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={eshwar} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    EASWARA MURTHY
+                  </div>
+                  <div>
+                    Founder & Chief Executive Officer (CEO)
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={abishek} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    ABHISHEK SRIVASTAVA
+                  </div>
+                  <div>
+                    Chief Customer Officer
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={andrew} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    ANDREW R
+                  </div>
+                  <div>
+                    APAC CTO
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={jefferson} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    JEFFERSON T. REYES
+                  </div>
+                  <div>
+                    Business Head Philippines
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={giri} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
+                <div style={{ textAlign: "center" }}>
+                  <div>
+                    GIRI MOHANA KRISHNAN NATARAJAN
+                  </div>
+                  <div>
+                    APAC DELIVERY HEAD
+                  </div>
+                </div>
+              </div>
+            </Slider>
+          </motion.div>
+        </Col>
+      </Row>
     </>
   );
 };
 
 const Dashboard = () => {
-  const timelineRef = useRef(null);
-  const [activeSection, setActiveSection] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
-  useEffect(() => {
-    if (isOpen && timelineRef.current) {
-      const items = new DataSet([
-        {
-          id: 1,
-          content: `
-         <img src="${image1}" alt="Cave Paintings" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Cave Paintings</div>
-            <div class="timeline-description">Early visual communication</div>
-            <div class="timeline-tech">Tech: Natural pigments, primitive tools</div>
-          </div>
-        `,
-          start: new Date(-35000, 0, 1).getTime()
-        },
-        {
-          id: 2,
-          content: `
-          <img src="${image4}" alt="Cuneiform Writing" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Cuneiform Writing</div>
-            <div class="timeline-description">Early writing system</div>
-            <div class="timeline-tech">Tech: Clay tablets, stylus</div>
-          </div>
-        `,
-          start: new Date(-3200, 0, 1).getTime()
-        },
-        {
-          id: 3,
-          content: `
-          <img src="${imageAlp}" alt="Alphabetic Writing" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Alphabetic Writing</div>
-            <div class="timeline-description">Phoenician alphabet</div>
-            <div class="timeline-tech">Tech: Ink, papyrus</div>
-          </div>
-        `,
-          start: new Date(-1050, 0, 1).getTime()
-        },
-        {
-          id: 4,
-          content: `
-          <img src="${image2}" alt="Printing Press" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Printing Press</div>
-            <div class="timeline-description">Mass production of books</div>
-            <div class="timeline-tech">Tech: Movable type, mechanical press</div>
-          </div>
-        `,
-          start: new Date(1440, 0, 1).getTime()
-        },
-        {
-          id: 5,
-          content: `
-          <img src="${image6}" alt="Telegraph" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Telegraph</div>
-            <div class="timeline-description">Long-distance communication</div>
-            <div class="timeline-tech">Tech: Electrical signals, Morse code</div>
-          </div>
-        `,
-          start: new Date(1844, 0, 1).getTime()
-        },
-        {
-          id: 6,
-          content: `
-          <img src="${image3}" alt="Internet" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Internet (ARPANET)</div>
-            <div class="timeline-description">Global network</div>
-            <div class="timeline-tech">Tech: Packet switching, TCP/IP</div>
-          </div>
-        `,
-          start: new Date(1969, 0, 1).getTime()
-        },
-        {
-          id: 7,
-          content: `
-          <img src="${image7}" alt="Social Media" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">Social Media (Twitter)</div>
-            <div class="timeline-description">Real-time global communication</div>
-            <div class="timeline-tech">Tech: Web 2.0, mobile apps</div>
-          </div>
-        `,
-          start: new Date(2006, 0, 1).getTime()
-        },
-        {
-          id: 8,
-          content: `
-          <img src="${image5}" alt="AI Language Models" class="timeline-image">
-          <div class="timeline-content">
-            <div class="timeline-title">AI Language Models</div>
-            <div class="timeline-description">Advanced AI assistants</div>
-            <div class="timeline-tech">Tech: Neural networks, big data</div>
-          </div>
-        `,
-          start: new Date(2020, 0, 1).getTime()
-        }
-      ]);
-
-      const options = {
-        zoomMin: 31_536_000_000 * 100,
-        zoomMax: 31_536_000_000 * 10000,
-        height: '80vh',
-        start: new Date(-10000, 0, 1),
-        end: new Date(),
-      };
-
-      const timeline = new Timeline(timelineRef.current, items, options);
-
-      return () => {
-        timeline.destroy();
-      };
-    }
-  }, [isOpen]);
 
   return (
     <div className="background-image container mx-auto p-4">
@@ -348,18 +332,12 @@ const Dashboard = () => {
         <div className='card-view'>
           <OfficeSection />
         </div>
-        <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
-          <h1 style={{ backgroundColor: "rgb(252, 231, 243)", color: "#DD4D85", display: "flex", justifyContent: "space-between", padding: "1.5%" }} className="text-center py-5 m-0" onClick={toggleAccordion}>
-            Evolution of Communication
-            {isOpen ? (
-              <ArrowBigUp className="ml-2" /> // Up Arrow when accordion is open
-            ) : (
-              <ArrowBigDown className="ml-2" /> // Down Arrow when accordion is closed
-            )}
-          </h1>
-          {isOpen && (
-            <div ref={timelineRef} className="w-full h-[80vh]" />
-          )}
+
+        <div>
+          <video width="600" height="400" autoplay loop muted>
+            <source src={videoMp4} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
         <div className="flex justify-between items-center p-4 border rounded-lg bg-gray-100">
@@ -367,7 +345,6 @@ const Dashboard = () => {
             <Shield className="w-8 h-8 text-green-600 mr-2" />
             <span className="font-semibold">Rule Engines</span>
           </div>
-          <ArrowRight className="w-6 h-6" />
           <div className="flex items-center">
             <Building className="w-8 h-8 text-blue-600 mr-2" />
             <span className="font-semibold">Workflow Definitions</span>
