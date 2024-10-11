@@ -164,3 +164,7 @@ img {
 .slick-next {
   color: black;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
