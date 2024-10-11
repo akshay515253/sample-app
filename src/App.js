@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Brain, Building, Shield, Play, Pause, ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import "./App.css"
 import { Timeline, DataSet } from "vis-timeline/standalone";
-import { Image } from "antd"
+import Slider from 'react-slick';
+import { Image, Row, Col } from "antd"
 import gifTitle from "../src/title-bg.gif"
 import "vis-timeline/styles/vis-timeline-graph2d.css";
 import dopsContent from "../src/DOTcontent1.jpg"
 import dopsGif from "../src/DOToption 2.gif"
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import LogoVideo from "../src/sample-video.mp4"
 import gifBg from "../src/bgImage.gif"
 import gifBack from "../src/dragon.png"
 import gifSrc from "../src/gif1.gif"
@@ -24,179 +24,190 @@ import image7 from "../src/Images/socialmedia.gif"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const BackgroundVideo = () => {
-  const videoRef = useRef(null);
-  const lastScrollY = useRef(0);
-  const scrollSpeed = 0.05; // Adjust this value to control reverse scroll speed
-
-  const handleScroll = useCallback(() => {
-    const { current: video } = videoRef;
-    if (!video) return;
-
-
-    const currentScrollY = window.scrollY;
-    const scrollDelta = currentScrollY - lastScrollY.current;
-
-
-    if (scrollDelta > 0) {
-      // Scrolling down, play forward
-      video.playbackRate = 1;
-      video.play();
-    } else if (scrollDelta < 0) {
-      // Scrolling up, rewind manually
-      // video.pause();  // Pause the video while rewinding
-      video.currentTime = Math.max(0, video.currentTime - scrollSpeed);
-    }
-
-    lastScrollY.current = currentScrollY;
-  }, []);
-
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-
-  return (
-    <img
-      style={{ height: "300px" }}
-      className="w-full object-cover z-[-1]"
-      src={gifBg}
-    >
-    </img>
-  );
-};
-
-const OfficeSection = ({ title, description, features, processes, transformation, gifImg, imgFile }) => {
+const OfficeSection = () => {
 
   const controls = useAnimation();
-  
-  // `useInView` hook to detect when the card comes into view
   const [ref, inView] = useInView({
-    triggerOnce: true, // Animation triggers once when in view
-    threshold: 0.2, // Trigger when 20% of the card is visible
+    triggerOnce: true,
+    threshold: 0.2,
   });
 
-  // Start animation when the card is in view
   useEffect(() => {
     if (inView) {
       controls.start({
         opacity: 1,
         x: 0, // Move to center (original position)
-        transition: { duration: 0.6, ease: "easeOut" },
+        transition: { duration: 0.1, ease: "easeOut" },
       });
     }
   }, [controls, inView]);
 
-  return (
-    <div style={{ gap: "20px" }} className="flex justify-between">
-       <motion.div
-        className="card-container shadow-lg rounded-lg overflow-hidden flex-1 m-2"
-        whileHover={{ scale: 1.05 }}
-        style={{ backgroundColor: "#FCE7F3" }}
-        ref={ref} // Ref for tracking when in view
-        initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
-        animate={controls} // Controlled animation
-      >
-        <div className="p-4 flex flex-col">
-          <h2 className="font-bold text-xl mb-2" style={{ color: '#DC4F88' }}>{title}</h2>
-          <p className="text-gray-700 mb-4">{description}</p>
-          
-          <h3 className="font-bold">Digital Transformation:</h3>
-          <p className="mb-4">{transformation}</p>
+  const ref1 = useRef(null);
 
-          <h3 className="font-bold mt-4">Key Features:</h3>
-          <p className="list-disc pl-5 mb-2">{features}</p>
-
-          <h3 className="font-bold">Core Processes:</h3>
-          <ul className="list-disc pl-5 mb-2">
-            {processes.map((process, index) => (
-              <li key={index}>{process}</li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
-
-      {/* Right Section with Two Cards */}
-      <div className="flex flex-col flex-1">
-        {/* First Card on the Right */}
-        <motion.div
-          className="card-container shadow-lg rounded-lg overflow-hidden mb-4"
-          whileHover={{ scale: 1.05 }}
-          style={{ backgroundColor: "#FCE7F3" }}
-          ref={ref}
-          initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
-          animate={controls}
-        >
-          <img src={gifImg} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-        </motion.div>
-
-        {/* GIF Section */}
-        <motion.div
-          className="card-container shadow-lg rounded-lg overflow-hidden"
-          whileHover={{ scale: 1.05 }}
-          style={{ backgroundColor: "#FCE7F3" }}
-          ref={ref}
-          initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
-          animate={controls}
-        >
-          <img src={imgFile} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-        </motion.div>
-      </div>
-    </div>
-  );
-};
-
-
-const AnimatedConnection = ({ isActive }) => (
-  <div style={{ backgroundColor: "#DD4D85" }} className={`h-1 transition-all duration-500 ${isActive ? 'w-full' : 'w-0'}`} />
-);
-
-
-const TransformersVideo = () => {
-  const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-
-  const togglePlay = () => {
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
+  // Carousel settings for smooth transitions
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
   };
 
-
   return (
-    <div className="relative w-full aspect-video">
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover rounded-lg"
-        loop
-        muted
-      >
-        <source src={LogoVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <button
-        style={{ zIndex: 999 }}
-        onClick={togglePlay}
-        className="absolute bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
-      >
-        {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-      </button>
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-        <p className="text-white text-2xl font-bold text-center px-4">
-          Transforming Your Business
-        </p>
-      </div>
-    </div>
+    <>
+      <Row style={{ display: "flex", alignItems: "center" }}>
+        <Col xl={10} sm={24} xs={24} lg={10} md={10}>
+          <h1 style={{ textAlign: "center" }} className="title">Folded into Perfection: The Harmony of Wrapdrive</h1>
+          <motion.div
+            className="card-container overflow-hidden flex-1 m-2"
+            whileHover={{ scale: 1.05 }}
+            ref={ref1}
+            initial={{ opacity: 0, x: -200 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <Slider {...settings}>
+              <div className='wrapdrive-container'>
+                <p className="intro">
+                  In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony.
+                </p>
+                <p className="main-content">
+                  Wrapdrive is the vessel that brings order to your digital landscape, weaving together disparate threads into a cohesive tapestry. With each integration, the boundaries between systems blur, and the beauty of simplicity emerges.
+                </p>
+              </div>
+
+              <div className='wrapdrive-container'>
+                <p className="main-content">
+                  As the intricate patterns of Origami reveal hidden symmetry, Wrapdrive uncovers new efficiencies, streamlining workflows and unlocking innovation. By consolidating access and security, Wrapdrive:
+                </p>
+                <ul className="features-list">
+                  <li>Protects the delicate balance of your organization's ecosystem</li>
+                  <li>Fosters collaboration and knowledge sharing</li>
+                  <li>Unfolds new possibilities for growth and productivity</li>
+                </ul>
+                <p className="closing">
+                  Experience the elegance of Wrapdrive, where complexity meets simplicity.
+                </p>
+              </div>
+            </Slider>
+          </motion.div>
+        </Col>
+        <Col xl={14} md={14} lg={14} xs={24} sm={24}>
+          <Row  style={{ display: "flex", flexDirection: "column" }}>
+            <motion.div
+              className="mb-4"
+              whileHover={{ scale: 1.05 }}
+              ref={ref}
+              initial={{ opacity: 0, x: -200 }}
+              animate={controls}
+            >
+              <div>
+                <img src={gifBack} alt="Transformation GIF" className="w-[60%] h-auto rounded-lg" />
+              </div>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              ref={ref}
+              initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+              animate={controls}
+            >
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <img src={gifSrc} alt="Transformation GIF" className="w-[60%] h-auto rounded-lg" />
+              </div>
+            </motion.div>
+          </Row>
+        </Col>
+      </Row>
+
+      <Row style={{ display: "flex", alignItems: "center" }}>
+        <Col xl={14} md={14} lg={14} xs={24} sm={24}>
+          <Row style={{ display: "flex", flexDirection: "column" }}>
+            <motion.div
+              className="mb-4"
+              whileHover={{ scale: 1.05 }}
+              ref={ref}
+              initial={{ opacity: 0, x: -200 }}
+              animate={controls}
+            >
+              <div>
+                <img src={dopsContent} alt="Transformation GIF" className="w-[60%] h-auto rounded-lg" />
+              </div>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              ref={ref}
+              initial={{ opacity: 0, x: -200 }} // Start off-screen to the left
+              animate={controls}
+            >
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <img src={dopsGif} alt="Transformation GIF" className="w-[60%] h-auto rounded-lg" />
+              </div>
+            </motion.div>
+          </Row>
+        </Col>
+
+        <Col xl={10} sm={24} xs={24} lg={10} md={10}>
+          <h1 style={{ textAlign: "center" }}  className="title">Introducing DOT: The Shape-Shifting AI Catalyst</h1>
+          <motion.div
+            className="card-container overflow-hidden flex-1 m-2"
+            whileHover={{ scale: 1.05 }}
+            ref={ref}
+            initial={{ opacity: 0, x: -200 }}
+            animate={controls}
+          >
+            <Slider {...settings}>
+              <div className="wrapdrive-container">
+                <p className="intro">
+                  Imagine a force that seamlessly integrates with your organization's core, adapting to its unique contours. Inspired by the timeless puzzle of Tetris, DOT is the compounding AI system that revolutionizes digital transformation.
+                </p>
+              </div>
+
+              <div className="wrapdrive-container">
+                <p className="main-content">
+                  Born from our founding team's decade-long expertise and the latest advancements in AI, DOT is the master builder of efficient systems. This formless and omnipresent intelligence shapeshifts to:
+                </p>
+                <ul className="features-list">
+                  <li>Understand legacy systems and modernization needs</li>
+                  <li>Streamline conversational flows with cutting-edge AI</li>
+                  <li>Seamlessly integrate with existing infrastructure</li>
+                </ul>
+              </div>
+
+              <div className="wrapdrive-container">
+                <p className="main-content">
+                  DOT's AI agents are the ultimate puzzle solvers, fitting perfectly into your organization's landscape. They:
+                </p>
+                <ul className="features-list">
+                  <li>Identify gaps and optimize workflows</li>
+                  <li>Enhance user experiences through intuitive interfaces</li>
+                  <li>Fortify security with adaptive threat detection</li>
+                </ul>
+              </div>
+
+              <div className="wrapdrive-container">
+                <p className="main-content">
+                  With DOT, transformation is no longer a puzzle. Our AI system:
+                </p>
+                <ul className="features-list">
+                  <li>Compounds knowledge with each interaction</li>
+                  <li>Evolves alongside your organization's growth</li>
+                  <li>Unlocks hidden potential through data-driven insights</li>
+                </ul>
+              </div>
+
+              <div className="wrapdrive-container">
+                <p className="closing">
+                  Experience the limitless possibilities of DOT, where technology seamlessly merges with innovation.
+                </p>
+              </div>
+            </Slider>
+          </motion.div>
+        </Col>
+      </Row>
+    </>
   );
 };
-
 
 const Dashboard = () => {
   const timelineRef = useRef(null);
@@ -206,64 +217,6 @@ const Dashboard = () => {
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-  const [isPaused, setIsPaused] = useState(false);
-  const sliderRef = useRef(null);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true,
-    centerPadding: '60px',
-    autoplay: true,
-    autoplaySpeed: 1000, // Adjust autoplay speed (in milliseconds)
-    beforeChange: () => {
-      if (isPaused) {
-        sliderRef.current.slickPlay(); // Resume autoplay
-        setIsPaused(false);
-      }
-    },
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
-  // Pause autoplay when mouse enters
-  const handleMouseEnter = () => {
-    sliderRef.current.slickPause(); // Pause autoplay
-    setIsPaused(true);
-  };
-
-  const handleMouseLeave = () => {
-    sliderRef.current.slickPlay(); // Resume autoplay
-    setIsPaused(false);
-  };
-
-  const handleSlideClick = () => {
-    if (isPaused) {
-      sliderRef.current.slickPlay(); // Resume autoplay
-    } else {
-      sliderRef.current.slickPause(); // Pause autoplay
-    }
-    setIsPaused(!isPaused);
-  };
-
 
   useEffect(() => {
     if (isOpen && timelineRef.current) {
@@ -382,34 +335,6 @@ const Dashboard = () => {
     }
   }, [isOpen]);
 
-  const offices = [
-    {
-      title: "Folded into Perfection: The Harmony of Wrapdrive",
-      description: "In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony",
-      features: "Wrapdrive is the vessel that brings order to your digital landscape, weaving together disparate threads into a cohesive tapestry. With each integration, the boundaries between systems blur, and the beauty of simplicity emerges.",
-      processes: ["Protects the delicate balance of your organization's ecosystem", "Fosters collaboration and knowledge sharing", "Unfolds new possibilities for growth and productivity", "Experience the elegance of Wrapdrive, where complexity meets simplicity."],
-      transformation: "As the intricate patterns of Origami reveal hidden symmetry, Wrapdrive uncovers new efficiencies, streamlining workflows and unlocking innovation. By consolidating access and security, Wrapdrive:",
-      gifImg: gifBack,
-      imgFile: gifSrc
-    },
-    {
-      title: "Introducing DOT: The Shape-Shifting AI Catalyst",
-      description: "Imagine a force that seamlessly integrates with your organization's core, adapting to its unique contours. Inspired by the timeless puzzle of Tetris, DOT is the compounding AI system that revolutionizes digital transformation.",
-      features: "Risk Assessment Compliance Quality Control",
-      processes: ["Identify gaps and optimize workflows", "Enhance user experiences through intuitive interfaces", "Enhance user experiences through intuitive interfaces", "Fortify security with adaptive threat detection"],
-      transformation: "Born from our founding team's decade-long expertise and the latest advancements in AI, DOT is the master builder of efficient systems. This formless and ominous intelligence shapeshifts to:Understand legacy systems and modernization needs,Streamline conversational flows with cutting-edge AI,Seamlessly integrate with existing infrastructure",
-      gifImg: dopsGif,
-      imgFile: dopsContent
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSection((prev) => (prev + 1) % offices.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="background-image container mx-auto p-4">
       <div className='content'>
@@ -424,26 +349,9 @@ const Dashboard = () => {
           </div>
         </div>
         <div className='card-view'>
-          {offices.map((office, index) => (
-            <OfficeSection key={index} {...office} />
-          ))}
-          {/* < div style={{ width: "48%" }} className="flex justify-center items-center bg-pink-100 rounded-lg overflow-hidden">
-            <img
-              src={gifSrc}
-              alt="logo"
-              className="w-auto h-full"
-            />
-          </div> */}
+          <OfficeSection />
         </div>
         <div className="relative p-4 border rounded-lg bg-gray-100 mb-8">
-          <div className="flex justify-center items-center mb-4">
-            <Brain className="w-12 h-12 text-purple-600" />
-            <h2 className="text-2xl font-semibold ml-2">DOT AI System</h2>
-          </div>
-          <p className="text-center mb-4">
-            Connecting all major departments, delivering communication, and making autonomous decisions
-          </p>
-
           <h1 style={{ backgroundColor: "rgb(252, 231, 243)", color: "#DD4D85", display: "flex", justifyContent: "space-between", padding: "1.5%" }} className="text-center py-5 m-0" onClick={toggleAccordion}>
             Evolution of Communication
             {isOpen ? (
@@ -455,11 +363,6 @@ const Dashboard = () => {
           {isOpen && (
             <div ref={timelineRef} className="w-full h-[80vh]" />
           )}
-          <div className="flex justify-around">
-            {offices.map((_, index) => (
-              <AnimatedConnection key={index} isActive={index === activeSection} />
-            ))}
-          </div>
         </div>
 
         <div className="flex justify-between items-center p-4 border rounded-lg bg-gray-100">

@@ -40,7 +40,7 @@ img {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #F9F9F9;
 }
 
 .App-link {
@@ -102,7 +102,7 @@ img {
 }
 
 .card {
-  background: white;
+  background: #F9F9F9;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px;
@@ -122,12 +122,95 @@ img {
 
 .card img {
   width: 100%;
-  /* Responsive image */
   height: auto;
   border-radius: 4px;
 }
 
 .card:hover {
   transform: scale(1.05);
-  /* Zoom effect on hover */
+}
+
+.card-container{
+  padding: 20px;
+}
+
+.features-list li {
+  font-size: 12px;
+  color: #16A085;
+  margin-bottom: 10px;
+}
+
+.features-list li:before {
+  color: #16A085;
+}
+
+.wrapdrive-container {
+  background-color: #fff;
+  height: 23rem;
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  padding: 10px;
+}
+
+.title {
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.intro, .main-content, .closing {
+  font-size: 14px;
+  line-height: 2;
+  margin-bottom: 10px;
+}
+
+.features-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  line-height: 2;
+}
+
+@media (max-width: 768px) {
+  .wrapdrive-container {
+      padding: 20px;
+  }
+
+  .title {
+      font-size: 1.5rem;
+  }
+
+  .intro, .main-content, .closing {
+      font-size: 1rem;
+  }
+
+  .features-list li {
+      font-size: 1rem;
+  }
+}
+
+.dot-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .dot-container {
+      padding: 20px;
+  }
+
+  .title {
+      font-size: 1.5rem;
+  }
+
+  .intro, .main-content, .closing {
+      font-size: 1rem;
+  }
+
+  .features-list li {
+      font-size: 1rem;
+  }
 }
