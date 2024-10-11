@@ -4,6 +4,13 @@
   align-items: center;
 }
 
+.background-image {
+  background-image: url("../src/title-bg.gif");
+  background-position: center;
+  object-fit: cover;
+  height: 50px;
+}
+
 img {
   width: 200px;
   height: 200px;
@@ -89,9 +96,16 @@ img {
   font-size: 14px;
   line-height: 2;
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .features-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  line-height: 2;
+}
+
+.features-list1 {
   list-style-type: disc;
   margin-left: 20px;
   line-height: 2;

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Building, Shield } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Building, Shield } from 'lucide-react';
 import "./App.css"
 import Slider from 'react-slick';
-import { Image, Row, Col } from "antd"
-import gifTitle from "../src/title-bg.gif"
+import { Row, Col } from "antd"
 import "vis-timeline/styles/vis-timeline-graph2d.css";
 import dopsContent from "../src/DOTcontent1.jpg"
 import dopsGif from "../src/DOToption 2.gif"
@@ -39,8 +38,8 @@ const OfficeSection = () => {
     if (inView) {
       controls.start({
         opacity: 1,
-        x: 0, // Move to center (original position)
-        transition: { duration: 0.1, ease: "easeOut" },
+        x: 0,
+        transition: { duration: 0.05, ease: "easeOut" },
       });
     }
   }, [controls, inView]);
@@ -88,7 +87,10 @@ const OfficeSection = () => {
                   <li>Fosters collaboration and knowledge sharing</li>
                   <li>Unfolds new possibilities for growth and productivity</li>
                 </ul>
-                <p className="closing">
+              </div>
+
+              <div  className='wrapdrive-container bg-gray-200 text-black'>
+              <p className="closing">
                   Experience the elegance of Wrapdrive, where complexity meets simplicity.
                 </p>
               </div>
@@ -199,6 +201,26 @@ const OfficeSection = () => {
                 <p className="closing">
                   Experience the limitless possibilities of DOT, where technology seamlessly merges with innovation.
                 </p>
+              </div>
+
+              <div>
+                <img src={dotImage1} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
+              </div>
+
+              <div>
+                <img src={dotImage2} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
+              </div>
+
+              <div>
+                <img src={dotImage3} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
+              </div>
+
+              <div>
+                <img src={dotImage4} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
+              </div>
+
+              <div>
+                <img src={dotImage5} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
               </div>
             </Slider>
           </motion.div>
@@ -316,25 +338,30 @@ const OfficeSection = () => {
 
 const Dashboard = () => {
 
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    videoRef.current.play();
+  }, [])
+
   return (
-    <div className="background-image container mx-auto p-4">
+    <div className="container mx-auto p-4">
       <div className='content'>
 
-        <div className='content-title-card'>
-          <div>
-            <Image preview={false} src={gifTitle} />
-          </div>
-          <h1 className="text-4xl font-bold text-center">Our Digital Transformation Journey</h1>
-          <div>
-            <Image preview={false} src={gifTitle} />
-          </div>
+        <div className='background-image'>
+          <h1 className="text-4xl font-bold text-center"><i>IORTA</i> Technology Solutions</h1>
         </div>
         <div className='card-view'>
           <OfficeSection />
         </div>
 
-        <div>
-          <video width="600" height="400" autoplay loop muted>
+        <div style={{ marginBottom: "10px" }}>
+          <video
+            ref={videoRef}
+            className="w-full h-[100px] object-none rounded-lg"
+            loop
+            muted
+          >
             <source src={videoMp4} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
