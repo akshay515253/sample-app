@@ -136,16 +136,17 @@ img {
 
 .features-list li {
   font-size: 12px;
-  color: #16A085;
+  color: white;
   margin-bottom: 10px;
 }
 
-.features-list li:before {
-  color: #16A085;
+.features-list1 li {
+  font-size: 12px;
+  color: black;
+  margin-bottom: 10px;
 }
 
 .wrapdrive-container {
-  background-color: #fff;
   height: 23rem;
   border-radius: 8px;
   border: 1px solid lightgray;

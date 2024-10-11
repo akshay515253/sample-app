@@ -68,7 +68,7 @@ const OfficeSection = () => {
             animate={{ opacity: 1, x: 0 }}
           >
             <Slider {...settings}>
-              <div className='wrapdrive-container'>
+              <div className='wrapdrive-container bg-red-500 text-white'>
                 <p className="intro">
                   In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony.
                 </p>
@@ -77,7 +77,7 @@ const OfficeSection = () => {
                 </p>
               </div>
 
-              <div className='wrapdrive-container'>
+              <div className='wrapdrive-container bg-blue-500 text-white'>
                 <p className="main-content">
                   As the intricate patterns of Origami reveal hidden symmetry, Wrapdrive uncovers new efficiencies, streamlining workflows and unlocking innovation. By consolidating access and security, Wrapdrive:
                 </p>
@@ -94,7 +94,7 @@ const OfficeSection = () => {
           </motion.div>
         </Col>
         <Col xl={14} md={14} lg={14} xs={24} sm={24}>
-          <Row  style={{ display: "flex", flexDirection: "column" }}>
+          <Row style={{ display: "flex", flexDirection: "column" }}>
             <motion.div
               className="mb-4"
               whileHover={{ scale: 1.05 }}
@@ -148,7 +148,7 @@ const OfficeSection = () => {
         </Col>
 
         <Col xl={10} sm={24} xs={24} lg={10} md={10}>
-          <h1 style={{ textAlign: "center" }}  className="title">Introducing DOT: The Shape-Shifting AI Catalyst</h1>
+          <h1 style={{ textAlign: "center" }} className="title">Introducing DOT: The Shape-Shifting AI Catalyst</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
             whileHover={{ scale: 1.05 }}
@@ -157,46 +157,43 @@ const OfficeSection = () => {
             animate={controls}
           >
             <Slider {...settings}>
-              <div className="wrapdrive-container">
+              <div className="wrapdrive-container bg-yellow-200 text-black">
                 <p className="intro">
                   Imagine a force that seamlessly integrates with your organization's core, adapting to its unique contours. Inspired by the timeless puzzle of Tetris, DOT is the compounding AI system that revolutionizes digital transformation.
                 </p>
               </div>
 
-              <div className="wrapdrive-container">
+              <div className="wrapdrive-container bg-green-400">
                 <p className="main-content">
                   Born from our founding team's decade-long expertise and the latest advancements in AI, DOT is the master builder of efficient systems. This formless and omnipresent intelligence shapeshifts to:
                 </p>
-                <ul className="features-list">
+                <ul className="features-list1">
                   <li>Understand legacy systems and modernization needs</li>
                   <li>Streamline conversational flows with cutting-edge AI</li>
                   <li>Seamlessly integrate with existing infrastructure</li>
                 </ul>
               </div>
 
-              <div className="wrapdrive-container">
+              <div className="wrapdrive-container bg-blue-200">
                 <p className="main-content">
                   DOT's AI agents are the ultimate puzzle solvers, fitting perfectly into your organization's landscape. They:
                 </p>
-                <ul className="features-list">
+                <ul className="features-list1">
                   <li>Identify gaps and optimize workflows</li>
                   <li>Enhance user experiences through intuitive interfaces</li>
                   <li>Fortify security with adaptive threat detection</li>
                 </ul>
               </div>
 
-              <div className="wrapdrive-container">
+              <div className="wrapdrive-container bg-red-200">
                 <p className="main-content">
                   With DOT, transformation is no longer a puzzle. Our AI system:
                 </p>
-                <ul className="features-list">
+                <ul className="features-list1">
                   <li>Compounds knowledge with each interaction</li>
                   <li>Evolves alongside your organization's growth</li>
                   <li>Unlocks hidden potential through data-driven insights</li>
                 </ul>
-              </div>
-
-              <div className="wrapdrive-container">
                 <p className="closing">
                   Experience the limitless possibilities of DOT, where technology seamlessly merges with innovation.
                 </p>
