@@ -85,9 +85,10 @@ img {
 }
 
 .title {
-  font-size: 21px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
+  font-family: serif;
 }
 
 .intro,
@@ -158,11 +159,6 @@ img {
   .features-list li {
     font-size: 1rem;
   }
-}
-
-.slick-prev,
-.slick-next {
-  color: black;
 }
 
 ::-webkit-scrollbar {

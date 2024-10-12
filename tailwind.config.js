@@ -1,7 +1,11 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        inter: 'cursive', // Add the custom Inter font using a CSS variable
+      },
+    },
   },
   plugins: [],
 };

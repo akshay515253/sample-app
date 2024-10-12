@@ -70,16 +70,16 @@ const OfficeSection = () => {
           >
             <Slider {...settings}>
               <div className='wrapdrive-container bg-red-500 text-white'>
-                <p className="intro">
+                <p className="intro font-inter">
                   In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony.
                 </p>
-                <p className="main-content">
+                <p className="main-content font-inter">
                   Wrapdrive is the vessel that brings order to your digital landscape, weaving together disparate threads into a cohesive tapestry. With each integration, the boundaries between systems blur, and the beauty of simplicity emerges.
                 </p>
               </div>
 
               <div className='wrapdrive-container bg-blue-500 text-white'>
-                <p className="main-content">
+                <p className="main-content font-inter">
                   As the intricate patterns of Origami reveal hidden symmetry, Wrapdrive uncovers new efficiencies, streamlining workflows and unlocking innovation. By consolidating access and security, Wrapdrive:
                 </p>
                 <ul className="features-list">
@@ -90,7 +90,7 @@ const OfficeSection = () => {
               </div>
 
               <div  className='wrapdrive-container bg-gray-200 text-black'>
-              <p className="closing">
+              <p className="closing font-inter">
                   Experience the elegance of Wrapdrive, where complexity meets simplicity.
                 </p>
               </div>
@@ -162,13 +162,13 @@ const OfficeSection = () => {
           >
             <Slider {...settings}>
               <div className="wrapdrive-container bg-yellow-200 text-black">
-                <p className="intro">
+                <p className="intro font-inter">
                   Imagine a force that seamlessly integrates with your organization's core, adapting to its unique contours. Inspired by the timeless puzzle of Tetris, DOT is the compounding AI system that revolutionizes digital transformation.
                 </p>
               </div>
 
               <div className="wrapdrive-container bg-green-400">
-                <p className="main-content">
+                <p className="main-content font-inter">
                   Born from our founding team's decade-long expertise and the latest advancements in AI, DOT is the master builder of efficient systems. This formless and omnipresent intelligence shapeshifts to:
                 </p>
                 <ul className="features-list1">
@@ -179,7 +179,7 @@ const OfficeSection = () => {
               </div>
 
               <div className="wrapdrive-container bg-blue-200">
-                <p className="main-content">
+                <p className="main-content font-inter">
                   DOT's AI agents are the ultimate puzzle solvers, fitting perfectly into your organization's landscape. They:
                 </p>
                 <ul className="features-list1">
@@ -190,7 +190,7 @@ const OfficeSection = () => {
               </div>
 
               <div className="wrapdrive-container bg-red-200">
-                <p className="main-content">
+                <p className="main-content font-inter">
                   With DOT, transformation is no longer a puzzle. Our AI system:
                 </p>
                 <ul className="features-list1">
@@ -198,7 +198,7 @@ const OfficeSection = () => {
                   <li>Evolves alongside your organization's growth</li>
                   <li>Unlocks hidden potential through data-driven insights</li>
                 </ul>
-                <p className="closing">
+                <p className="closing font-inter">
                   Experience the limitless possibilities of DOT, where technology seamlessly merges with innovation.
                 </p>
               </div>
@@ -231,7 +231,7 @@ const OfficeSection = () => {
         <Col xl={8} md={8} lg={8} xs={24} sm={24}>
           <h1 style={{ textAlign: "center" }} className="title">Our Story</h1>
           <div style={{ textAlign: "center" }}>
-            <p className="closing">
+            <p className="closing font-inter">
               {`Easwar Murthy and Himanshu Gupta co-founded iorta Technology Solutions in 2017.
 
               Before stepping out on their own, Easwar and Himanshu spent years in techno-functional roles within prominent corporations in the insurance industry.
@@ -280,54 +280,6 @@ const OfficeSection = () => {
                   </div>
                 </div>
               </div>
-
-              <div>
-                <img src={abishek} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-                <div style={{ textAlign: "center" }}>
-                  <div>
-                    ABHISHEK SRIVASTAVA
-                  </div>
-                  <div>
-                    Chief Customer Officer
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <img src={andrew} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-                <div style={{ textAlign: "center" }}>
-                  <div>
-                    ANDREW R
-                  </div>
-                  <div>
-                    APAC CTO
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <img src={jefferson} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-                <div style={{ textAlign: "center" }}>
-                  <div>
-                    JEFFERSON T. REYES
-                  </div>
-                  <div>
-                    Business Head Philippines
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <img src={giri} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
-                <div style={{ textAlign: "center" }}>
-                  <div>
-                    GIRI MOHANA KRISHNAN NATARAJAN
-                  </div>
-                  <div>
-                    APAC DELIVERY HEAD
-                  </div>
-                </div>
-              </div>
             </Slider>
           </motion.div>
         </Col>
@@ -349,7 +301,7 @@ const Dashboard = () => {
       <div className='content'>
 
         <div className='background-image'>
-          <h1 className="text-4xl font-bold text-center"><i>IORTA</i> Technology Solutions</h1>
+          <h1 className="text-4xl font-bold text-center"><i>Iorta</i> Technology Solutions</h1>
         </div>
         <div className='card-view'>
           <OfficeSection />
