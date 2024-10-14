@@ -13,18 +13,16 @@ import gifSrc from "../src/gif1.gif"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import groupPic from "../src/founders_new-fotor-ai-art-effects-20241011163944-transformed.png"
-import giri from "../src/giri.png"
-import abishek from "../src/Abhishek.png"
-import andrew from "../src/Andrew.png"
+import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
 import eshwar from "../src/Easwar-Murthy-CEO.png"
 import himanshu from "../src/HImanshu.png"
-import jefferson from "../src/Jefferson.png"
 import dotImage1 from "../src/dotImage1.png"
 import dotImage2 from "../src/dotImage2.png"
 import dotImage3 from "../src/dotImage3.png"
 import dotImage4 from "../src/dotImage4.png"
 import dotImage5 from "../src/dotImage5.png"
 import videoMp4 from "../src/video.mp4"
+import "react-carousel-animated/dist/style.css";
 
 const OfficeSection = () => {
 
@@ -53,7 +51,7 @@ const OfficeSection = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 4000,
   };
 
   return (
@@ -68,7 +66,30 @@ const OfficeSection = () => {
             initial={{ opacity: 0, x: -200 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <Slider {...settings}>
+             <Slider {...settings}>
+            {/* <ReactCarousel
+              carouselConfig={{
+                transform: {
+                  rotateY: {
+                    [BEFORE]: () => "rotateY(25deg)",
+                    [CENTER]: () => "rotateY(0deg)",
+                    [AFTER]: () => "rotateY(-25deg)",
+                  },
+                },
+              }}
+              itemBackgroundStyle={{
+                backgroundColor: "#f9f9f9",
+                borderRadius: "3px",
+                boxShadow: "8px 12px 14px -6px black",
+              }}
+              containerBackgroundStyle={{
+                filter: "blur(7px)",
+              }}
+              itemMaxWidth={100}
+              carouselHeight="350px"
+              autoSlide={true}
+              autoSlideInterval={1000}    // Set the interval for auto sliding (3000ms = 3 seconds)
+            > */}
               <div className='wrapdrive-container bg-red-500 text-white'>
                 <p className="intro font-inter">
                   In the delicate art of Origami, a single crease can transform a flat sheet into a work of art. Similarly, the subtle connections between systems and processes can elevate an organization from chaos to harmony.
@@ -89,11 +110,12 @@ const OfficeSection = () => {
                 </ul>
               </div>
 
-              <div  className='wrapdrive-container bg-gray-200 text-black'>
-              <p className="closing font-inter">
+              <div className='wrapdrive-container bg-gray-200 text-black'>
+                <p className="closing font-inter">
                   Experience the elegance of Wrapdrive, where complexity meets simplicity.
                 </p>
               </div>
+            {/* </ReactCarousel> */}
             </Slider>
           </motion.div>
         </Col>
@@ -152,7 +174,7 @@ const OfficeSection = () => {
         </Col>
 
         <Col xl={8} sm={24} xs={24} lg={8} md={8}>
-          <h1 style={{ textAlign: "center" }} className="title">Introducing DOT: The Shape-Shifting AI Catalyst</h1>
+          <h1 style={{ textAlign: "center" }} className="title">DOT: Shape-Shifting AI Catalyst</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
             whileHover={{ scale: 1.05 }}
@@ -301,7 +323,7 @@ const Dashboard = () => {
       <div className='content'>
 
         <div className='background-image'>
-          <h1 className="text-4xl font-bold text-center"><i>Iorta</i> Technology Solutions</h1>
+          <h1 className="text-4xl font-bold text-center"><i>iorta</i> Technology Solutions</h1>
         </div>
         <div className='card-view'>
           <OfficeSection />
