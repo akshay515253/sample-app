@@ -45,9 +45,9 @@ const OfficeSection = () => {
   const ref1 = useRef(null);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 3000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
