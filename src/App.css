@@ -9,6 +9,8 @@
   background-position: center;
   object-fit: cover;
   height: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 img {
@@ -61,14 +63,14 @@ img {
   transform: scale(1.05);
 }
 
-.card-container {
-  padding: 20px;
-}
-
 .features-list li {
   font-size: 12px;
   color: white;
   margin-bottom: 10px;
+}
+
+.image-logo{
+  border-radius: 20px;
 }
 
 .features-list1 li {
@@ -88,7 +90,7 @@ img {
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
-  font-family: serif;
+  font-family: sans-serif;
 }
 
 .intro,

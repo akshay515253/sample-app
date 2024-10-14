@@ -2,12 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { Building, Shield } from 'lucide-react';
 import "./App.css"
 import Slider from 'react-slick';
-import { Row, Col } from "antd"
+import { Row, Col, Image } from "antd"
 import "vis-timeline/styles/vis-timeline-graph2d.css";
 import dopsContent from "../src/DOTcontent1.jpg"
 import dopsGif from "../src/DOToption 2.gif"
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import iortaLogo from "../src/image.png"
 import gifBack from "../src/dragon.png"
 import gifSrc from "../src/gif1.gif"
 import 'slick-carousel/slick/slick.css';
@@ -47,18 +48,18 @@ const OfficeSection = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 2000,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 8000,
+    autoplaySpeed: 6000,
   };
 
   return (
     <>
-      <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <Col xl={8} sm={24} xs={24} lg={8} md={8}>
-          <h1 style={{ textAlign: "center" }} className="title">Folded into Perfection: The Harmony of Wrapdrive</h1>
+      <Row style={{ display: "flex", alignItems: "center" }}>
+        <Col xl={7} sm={24} xs={24} lg={7} md={7}>
+          <h1 style={{ textAlign: "start" }} className="title">Folded into Perfection The Harmony of Wrapdrive</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
             whileHover={{ scale: 1.05 }}
@@ -66,8 +67,8 @@ const OfficeSection = () => {
             initial={{ opacity: 0, x: -200 }}
             animate={{ opacity: 1, x: 0 }}
           >
-             <Slider {...settings}>
-            {/* <ReactCarousel
+            <Slider {...settings}>
+              {/* <ReactCarousel
               carouselConfig={{
                 transform: {
                   rotateY: {
@@ -115,11 +116,11 @@ const OfficeSection = () => {
                   Experience the elegance of Wrapdrive, where complexity meets simplicity.
                 </p>
               </div>
-            {/* </ReactCarousel> */}
+              {/* </ReactCarousel> */}
             </Slider>
           </motion.div>
         </Col>
-        <Col xl={14} md={14} lg={14} xs={24} sm={24}>
+        <Col xl={17} md={17} lg={17} xs={24} sm={24}>
           <Row style={{ display: "flex", flexDirection: "column" }}>
             <motion.div
               className="mb-4"
@@ -146,8 +147,8 @@ const OfficeSection = () => {
         </Col>
       </Row>
 
-      <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <Col xl={14} md={14} lg={14} xs={24} sm={24}>
+      <Row style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
+        <Col xl={17} md={17} lg={17} xs={24} sm={24}>
           <Row style={{ display: "flex", flexDirection: "column" }}>
             <motion.div
               className="mb-4"
@@ -173,8 +174,8 @@ const OfficeSection = () => {
           </Row>
         </Col>
 
-        <Col xl={8} sm={24} xs={24} lg={8} md={8}>
-          <h1 style={{ textAlign: "center" }} className="title">DOT: Shape-Shifting AI Catalyst</h1>
+        <Col xl={7} sm={24} xs={24} lg={7} md={7}>
+          <h1 style={{ textAlign: "start" }} className="title">DOT Shape-Shifting AI Catalyst</h1>
           <motion.div
             className="card-container overflow-hidden flex-1 m-2"
             whileHover={{ scale: 1.05 }}
@@ -252,17 +253,20 @@ const OfficeSection = () => {
       <Row style={{ display: "flex", alignItems: "center", gap: "20px", justifyContent: "space-around" }}>
         <Col xl={8} md={8} lg={8} xs={24} sm={24}>
           <h1 style={{ textAlign: "center" }} className="title">Our Story</h1>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "start" }}>
             <p className="closing font-inter">
               {`Easwar Murthy and Himanshu Gupta co-founded iorta Technology Solutions in 2017.
 
               Before stepping out on their own, Easwar and Himanshu spent years in techno-functional roles within prominent corporations in the insurance industry.
 
-              Driven by a shared vision to address industry-wide challenges using technology, they embarked on a journey to make a difference.
+              Driven by a shared vision to address industry-wide challenges using technology.`}
+            </p>
+            <p className="closing font-inter">
+              They embarked on a journey to make a difference.
 
               It’s been 7 years since then.
 
-              Today, iorta stands as a leading InsurTech company in India, making transformative changes that impact the lives of enterprise users and end-users of financial platforms.`}
+              Today, iorta stands as a leading InsurTech company in India, making transformative changes that impact the lives of enterprise users and end-users of financial platforms.
             </p>
           </div>
         </Col>
@@ -275,9 +279,9 @@ const OfficeSection = () => {
             animate={{ opacity: 1, x: 0 }}
           >
             <Slider {...settings}>
-              <div>
+              {/* <div>
                 <img src={groupPic} alt="Transformation GIF" className="w-[100%] h-[100%] rounded-lg" />
-              </div>
+              </div> */}
 
               <div>
                 <img src={himanshu} alt="Transformation GIF" className="w-[100%] h-auto rounded-lg" />
@@ -323,7 +327,7 @@ const Dashboard = () => {
       <div className='content'>
 
         <div className='background-image'>
-          <h1 className="text-4xl font-bold text-center"><i>iorta</i> Technology Solutions</h1>
+          <Image className='image-logo' preview={false} src={iortaLogo} />
         </div>
         <div className='card-view'>
           <OfficeSection />
